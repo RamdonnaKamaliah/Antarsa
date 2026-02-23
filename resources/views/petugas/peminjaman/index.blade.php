@@ -23,6 +23,11 @@
                     <p class="text-sm text-gray-500">
                         Tanggal: {{ $p->tanggal_pengambilan_rencana }}
                     </p>
+                    <p class="text-sm text-gray-500">
+                        Tanggal: {{ $p->tanggal_pengambilan_rencana }}
+                    </p>
+
+                    
 
                     <span
                         class="px-3 py-1 text-xs rounded-full

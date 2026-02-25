@@ -69,7 +69,7 @@
                     </button>
                 @else
                     <p class="text-gray-500 italic">
-                        Sudah diambil
+                        Alat Sudah diambil
                     </p>
                 @endif
     </div>

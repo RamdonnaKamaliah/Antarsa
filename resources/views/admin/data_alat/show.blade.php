@@ -3,77 +3,101 @@
 @section('title', 'Detail Data Alat')
 
 @section('content')
-    <div class="pt-6 px-4 flex justify-center">
+    <div class="p-6">
 
-        <div class="w-full bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8">
+        {{-- Back --}}
 
-            {{-- Tombol Back --}}
-            <div class="mb-6">
-                <a href="{{ route('admin.data-alat.index') }}"
-                    class="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-2">
-                    <i class="fas fa-arrow-left text-xl"></i>
-                </a>
+        <a href="{{ route('admin.data-alat.index') }}"
+            class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-white mb-5 transition">
+            <i class="fas fa-arrow-left text-xs"></i>
+            Kembali ke Daftar
+        </a>
+        <div class="w-full mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow overflow-hidden">
+
+            {{-- Header --}}
+            <div class="bg-teal-500 px-6 py-4">
+                <h1 class="text-white font-bold text-lg">Detail Data Alat</h1>
+                <p class="text-teal-100 text-xs mt-0.5">Informasi lengkap perangkat</p>
             </div>
 
+            <div class="p-6 space-y-5">
 
-            {{-- Judul --}}
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">
-                Detail Data Alat
-            </h2>
+                {{-- Foto + QR sejajar --}}
+                <div class="flex gap-4">
 
-            {{-- Card Detail --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                {{-- Foto --}}
-                <div class="flex justify-center items-center">
-                    @if ($alat->foto_alat)
-                        <img src="{{ asset('storage/' . $alat->foto_alat) }}" alt="Foto Alat"
-                            class="w-72 h-72 object-cover rounded-xl shadow-md">
-                    @else
-                        <div class="w-72 h-72 flex items-center justify-center bg-gray-200 rounded-xl">
-                            <span class="text-gray-500">Tidak ada foto</span>
-                        </div>
-                    @endif
-                </div>
-
-                {{-- Informasi --}}
-                <div class="space-y-4">
-
-                    <div>
-                        <p class="text-gray-500 text-sm">Nama Alat</p>
-                        <p class="text-lg font-semibold text-gray-800 dark:text-white">
-                            {{ $alat->nama_alat }}
-                        </p>
+                    {{-- Foto --}}
+                    <div
+                        class="w-40 h-40 shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-slate-700 flex items-center justify-center">
+                        @if ($alat->foto_alat)
+                            <img src="{{ asset('storage/' . $alat->foto_alat) }}" alt="Foto Alat"
+                                class="w-full h-full object-cover">
+                        @else
+                            <div class="flex flex-col items-center gap-1 text-gray-400">
+                                <i class="fas fa-image text-2xl"></i>
+                                <span class="text-xs">Tidak ada foto</span>
+                            </div>
+                        @endif
                     </div>
 
-                    <div>
-                        <p class="text-gray-500 text-sm">Kategori</p>
-                        <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                    {{-- QR --}}
+                    <div
+                        class="flex-1 flex flex-col items-center justify-center gap-2 rounded-xl border border-gray-100 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 p-4">
+                        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">QR Code</span>
+                        @if ($alat->qr_code)
+                            <img src="{{ asset('storage/qrcode/' . $alat->qr_code) }}" alt="QR Code"
+                                class="w-24 h-24 object-contain">
+                        @else
+                            <div
+                                class="w-24 h-24 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-slate-600 text-gray-400 text-xs text-center leading-tight">
+                                QR tidak<br>tersedia
+                            </div>
+                        @endif
+                    </div>
+
+                </div>
+
+                <hr class="border-gray-100 dark:border-slate-700">
+
+                {{-- Info --}}
+                <div class="grid grid-cols-3 gap-3">
+
+                    <div class="col-span-3 bg-gray-50 dark:bg-slate-700 rounded-xl px-4 py-3">
+                        <p class="text-xs text-gray-400 mb-0.5">Nama Alat</p>
+                        <p class="font-semibold text-gray-800 dark:text-white">{{ $alat->nama_alat }}</p>
+                    </div>
+
+                    <div class="col-span-2 bg-gray-50 dark:bg-slate-700 rounded-xl px-4 py-3">
+                        <p class="text-xs text-gray-400 mb-1">Kategori</p>
+                        <span
+                            class="inline-block text-xs font-semibold bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300 px-2.5 py-1 rounded-full">
                             {{ $alat->kategori->nama_kategori ?? '-' }}
-                        </p>
+                        </span>
                     </div>
 
-                    <div>
-                        <p class="text-gray-500 text-sm">Stok</p>
-                        <p class="text-lg font-semibold text-gray-800 dark:text-white">
-                            {{ $alat->stok }}
-                        </p>
-                    </div>
-
-                    {{-- Tombol Aksi --}}
-                    <div class="pt-4 flex gap-3">
-                        <a href="{{ route('admin.data-alat.edit', $alat->id) }}"
-                            class="px-5 py-2 rounded-lg bg-yellow-500 (text-white) hover:bg-yellow-600 transition">
-                            Edit
-                        </a>
-
-                        <a href="{{ route('admin.data-alat.index') }}"
-                            class="px-5 py-2 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition">
-                            Kembali
-                        </a>
+                    <div class="bg-gray-50 dark:bg-slate-700 rounded-xl px-4 py-3">
+                        <p class="text-xs text-gray-400 mb-1">Stok</p>
+                        <span
+                            class="inline-block text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300 px-2.5 py-1 rounded-full">
+                            {{ $alat->stok }} unit
+                        </span>
                     </div>
 
                 </div>
+
+                <hr class="border-gray-100 dark:border-slate-700">
+
+                {{-- Actions --}}
+                <div class="flex justify-end gap-2">
+                    <a href="{{ route('admin.data-alat.index') }}"
+                        class="px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-300 transition">
+                        <i class="fas fa-arrow-left mr-1"></i> Kembali
+                    </a>
+                    <a href="{{ route('admin.data-alat.edit', $alat->id) }}"
+                        class="px-4 py-2 text-sm font-medium rounded-lg bg-yellow-400 hover:bg-yellow-500 text-white transition">
+                        <i class="fas fa-pen mr-1"></i> Edit
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

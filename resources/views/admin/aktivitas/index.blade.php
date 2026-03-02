@@ -15,6 +15,11 @@
                 <span class="text-slate-500 text-xs uppercase font-semibold tracking-wider">Total Aktivitas:</span>
                 <span class="text-primary font-bold ml-2">{{ $logs->total() }}</span>
             </div>
+            <div
+                class="bg-white dark:bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                <span class="text-slate-500 text-xs uppercase font-semibold tracking-wider">Total Aktivitas:</span>
+                <span class="text-primary font-bold ml-2">{{ $logs->total() }}</span>
+            </div>
         </div>
 
         <div

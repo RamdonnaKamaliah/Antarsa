@@ -15,7 +15,6 @@
                 <span class="text-slate-500 text-xs uppercase font-semibold tracking-wider">Total Aktivitas:</span>
                 <span class="text-primary font-bold ml-2">{{ $logs->total() }}</span>
             </div>
-      
         </div>
 
         <div

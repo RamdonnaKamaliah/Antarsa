@@ -15,6 +15,7 @@ class AdminPengembalianController extends Controller
         'total_kondisiRusak' => Pengembalian::where('kondisi_kembali', 'rusak')->count(),
         'total_kondisiBaik' => Pengembalian::where('kondisi_kembali', 'baik')->count(),
         'total_kondisiBaik' => Pengembalian::where('kondisi_kembali', 'baik')->count(),
+        'total_kondisiBaik' => Pengembalian::where('kondisi_kembali', 'baik')->count(),
     ];
 
         $pengembalian = Pengembalian::latest()->get();

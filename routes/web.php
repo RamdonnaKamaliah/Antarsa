@@ -68,14 +68,13 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')
     Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
     Route::post('/peminjaman/{id}/approve', [PeminjamanController::class, 'approve'])->name('peminjaman.approve');
     Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
-    Route::get('/petugas/peminjaman/{id}/scan', [PeminjamanController::class, 'scan'])->name('peminjaman.scan');
-    Route::post('/petugas/peminjaman/scan/verify', [PeminjamanController::class, 'verifyScan'])->name('peminjaman.scan.verify');
+    Route::get('/peminjaman/{id}/scan', [PeminjamanController::class, 'scan'])->name('peminjaman.scan');
+    Route::post('/peminjaman/scan/verify', [PeminjamanController::class, 'verifyScan'])->name('peminjaman.scan.verify');
     Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
     Route::post('/pengembalian/verify/{id}', [PengembalianController::class, 'verifyPengembalian'])
-    ->name('petugas.pengembalian.verifyPengembalian');
+    ->name('pengembalian.verifyPengembalian');
     Route::get('/laporan/peminjaman', [LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/laporan/peminjaman/unduh', [LaporanController::class, 'unduh'])->name('laporan.unduh');
-
 
     
 });
@@ -89,30 +88,19 @@ Route::middleware(['auth', 'role:peminjam'])->prefix('peminjam')->name('peminjam
     Route::get('/pengembalianAlat', [PengembalianAlatController::class, 'index'])->name('pengembalianAlat');
     Route::get('/pengembalianAlat/{id}', [PengembalianAlatController::class, 'show'])->name('pengembalianAlat.show');
     Route::resource('/profile-peminjam', PeminjamProfileController::class);
-    
     Route::get('/keranjang', [KeranjangController::class, 'index'])
     ->name('keranjang.index');
-
     Route::post('/keranjang/tambah/{id}', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
-
     Route::post('/keranjang/hapus/{id}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
-
     Route::post('/keranjang/checkout', [KeranjangController::class, 'checkout'])->name('keranjang.checkout');
-
     Route::post('/keranjang/update/{id}', [KeranjangController::class, 'update'])
     ->name('keranjang.update');
-
     Route::get('peminjaman-alat/{id}/download-qr', [PeminjamanAlatController::class, 'downloadQr'])
          ->name('peminjaman.downloadQr');
-
     //simpan dari menu cekout ke tabel peminjaman
     Route::post('/keranjang/checkout', [PeminjamanAlatController::class, 'store'])
     ->name('keranjang.checkout');
-
     Route::get('/peminjaman/{id}', [PeminjamanAlatController::class, 'show'])->name('peminjaman.show');
-
-
-
 
 });
 

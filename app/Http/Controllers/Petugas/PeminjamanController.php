@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
-use App\Models\Alat;
 use App\Models\DetailPeminjaman;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
@@ -14,7 +13,6 @@ class PeminjamanController extends Controller
     public function index() {
 
         Peminjaman::where('status', 'pending')->where('created_at', '<=', now()->subDay())->update(['status' => 'expired']);
-    
         $peminjaman = Peminjaman::with('user', 'detail.alat')->latest()->get();
         return view('petugas.peminjaman.index', compact('peminjaman'));
     }
@@ -41,64 +39,74 @@ class PeminjamanController extends Controller
 
 public function verifyScan(Request $request)
 {
-
-    if($request->hasFile('qr_file')){
+     dd('sampai sini', $request->all());    
+    //handle request
+     if ($request->hasFile('qr_file')) {
         $request->validate([
-                'qr_file' => 'image|required',
-                'peminjaman_id' => 'required'
-            ]);
-            
-    $path = $request->file('qr_file')->getRealPath();
-    $qr = new \Zxing\QrReader($path);
-    $kodeBarang = $qr->text();
+            'qr_file'       => 'required|image',
+            'peminjaman_id' => 'required'
+        ]);
+        
+        $file = $request->file('qr_file');
+        $filename = 'qr_scan_' . time() . '.' . $file->getClientOriginalExtension();
+        $file->move(storage_path('app/temp'), $filename);
+        $path = storage_path('app/temp/' . $filename);
 
-    if(!$kodeBarang){
-        return back()->with('error', 'qr tidak terbaca');
-    }
-    
-    $request->merge(['kode_barang' => $kodeBarang]);
-    
-    }    
+        
+        $qr = new \Zxing\QrReader($path);
+        $kodeBarang = $qr->text();
 
-   $request->validate([
-    'kode_barang' => 'required',
-    'id_peminjaman' => 'required'
-   ]);
+         @unlink($path);
 
-   // Cari detail peminjaman berdasarkan kode barang
-    $detail = DetailPeminjaman::with('alat')->where('id_peminjaman', $request->peminjaman_id)
-        ->whereHas('alat', function ($q) use ($request) {
-            $q->where('kode_barang', $request->kode_barang);
-        })
-        ->where('status_pengambilan', '!=', 'diambil')
-        ->first();
+        if (!$kodeBarang) {
+            return back()->with('error', 'QR tidak terbaca, coba foto yang lebih jelas');
+        }
 
-    if (!$detail) {
-        return back()->with('error', 'Barang tidak ditemukan atau sudah diambil');
+        $request->merge(['kode_barang' => $kodeBarang]);
     }
 
-    if ($detail->alat->stok < $detail->jumlah) {
-        return back()->with('error', 'Stok tidak mencukupi');
-    }
-
-    $detail->alat->decrement('stok', $detail->jumlah);
-
-    $detail->update([
-        'status_pengambilan' => 'diambil',
-        'tanggal_pengambilan' => now()
+    //validate
+    $request->validate([
+        'kode_barang' => 'required',
+        'id_peminjaman' => 'required'
     ]);
 
-    $peminjaman = $detail->peminjaman;
-    $masihAda = $peminjaman->detail()->where('status', '!=', 'diambil')->exists();
+    $detail = DetailPeminjaman::with(['alat', 'peminjaman'])
+        ->where('id_peminjaman', $request->id_peminjaman)
+        ->whereHas('alat', function ($q) use ($request){
+           $q->where('kode_barang', $request->kode_barang);
+        })
+         ->where('status_pengambilan', '!=', 'diambil')
+        ->first();
 
-     if (!$masihAda) {
-            $peminjaman->update([
-                'status' => 'dipinjam',
-                'tanggal_diambil' => now()
-            ]);
+        if(!detail){
+            return back()->with('error', 'Barang tidak ditemukan atau sudah diambil');
         }
-    
-    return back()->with('success', 'Barang berhasil diverifikasi & diambil');
+
+        if($detail->alat->stok < $detail->jumlah){
+            return back()->with('error', 'stok tidak mencukupi');
+        }
+
+        $detail->alat->decrement('stok', $detail->jumlah);
+        $detail->update([
+            'status_pengambilan' => 'diambil',
+            'tanggal_pengambilan' => now()
+        ]);
+
+         // Cek apakah semua barang sudah diambil
+         $masihAda = $detail->peminjaman
+        ->detail()
+        ->where('status_pengambilan', '!=', 'diambil') 
+        ->exists();
+
+    if (!$masihAda) {
+        $detail->peminjaman->update([
+            'status'         => 'dipinjam',
+            'tanggal_diambil' => now()
+        ]);
+    }
+
+    return back()->with('succes', 'Barang berhasil diverifikasi & diambil');
 }
 
     public function reject(Request $request, $id)

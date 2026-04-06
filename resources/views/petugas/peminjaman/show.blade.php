@@ -15,6 +15,18 @@
                 </a>
             </div>
 
+            @if (session('error'))
+                <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- INFO PEMINJAMAN -->
             <div class="mb-6 border-b pb-4">
                 <h2 class="text-xl font-bold mb-2">Informasi Peminjaman</h2>
@@ -22,9 +34,7 @@
                 <p><span class="font-semibold">Peminjam:</span> {{ $peminjaman->user->name }}</p>
                 <p><span class="font-semibold">Tanggal Ambil:</span> {{ $peminjaman->tanggal_pengambilan_rencana }}</p>
                 <p><span class="font-semibold">Tanggal Kembali:</span> {{ $peminjaman->tanggal_pengembalian_rencana }}</p>
-                <p><span class="font-semibold">Peminjam:</span> {{ $peminjaman->user->name }}</p>
-                <p><span class="font-semibold">Tanggal Ambil:</span> {{ $peminjaman->tanggal_pengambilan_rencana }}</p>
-                <p><span class="font-semibold">Tanggal Kembali:</span> {{ $peminjaman->tanggal_pengembalian_rencana }}</p>
+
 
                 <p class="mt-2">
                     <span class="font-semibold">Status:</span>
@@ -73,7 +83,8 @@
 
                             <!-- Tombol Scan -->
                             @if ($detail->status_pengambilan != 'diambil' && $peminjaman->status == 'disetujui')
-                                <button onclick="openScanModal('{{ $peminjaman->id }}','{{ $detail->alat->kode_barang }}')"
+                                <button
+                                    onclick="openScanModal('{{ $peminjaman->id }}','{{ $detail->alat->kode_barang }}')"
                                     class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700">
                                     Scan QR
                                 </button>
@@ -120,7 +131,7 @@
             <div id="uploadSection" class="hidden">
                 <form action="{{ route('petugas.peminjaman.scan.verify') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="peminjaman_id" id="upload_peminjaman_id">
+                    <input type="hidden" name="id_peminjaman" id="upload_peminjaman_id">
 
                     <input type="file" name="qr_file" accept="image/*" class="w-full border rounded-lg p-2 text-sm mb-3">
 
@@ -133,7 +144,6 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT ================= -->
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
         let html5QrCode;
@@ -199,17 +209,16 @@
             const pid = document.createElement('input');
             pid.type = 'hidden';
             pid.name = 'id_peminjaman';
-            pid.value = document.getElementById('peminjaman_id').value;
+            pid.value = document.getElementById('id_peminjaman').value; // ✅ fix
 
             const kode = document.createElement('input');
             kode.type = 'hidden';
             kode.name = 'kode_barang';
-            kode.value = result;
+            kode.value = result; // ✅ ini sudah benar, isi dari hasil scan
 
             form.appendChild(csrf);
             form.appendChild(pid);
             form.appendChild(kode);
-
             document.body.appendChild(form);
             form.submit();
         }

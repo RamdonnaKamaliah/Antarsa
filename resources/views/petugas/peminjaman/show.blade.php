@@ -15,18 +15,6 @@
                 </a>
             </div>
 
-            @if (session('error'))
-                <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                    {{ session('error') }}
-                </div>
-            @endif
-
-            @if (session('success'))
-                <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <!-- INFO PEMINJAMAN -->
             <div class="mb-6 border-b pb-4">
                 <h2 class="text-xl font-bold mb-2">Informasi Peminjaman</h2>
@@ -82,13 +70,22 @@
                             </div>
 
                             <!-- Tombol Scan -->
-                            @if ($detail->status_pengambilan != 'diambil' && $peminjaman->status == 'disetujui')
-                                <button
-                                    onclick="openScanModal('{{ $peminjaman->id }}','{{ $detail->alat->kode_barang }}')"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700">
-                                    Scan QR
-                                </button>
-                            @endif
+
+                            <div>
+                                {{-- Tombol Scan Pengembalian (Jika sudah diambil) --}}
+                                @if ($detail->status_pengambilan == 'diambil')
+                                    <button class="bg-blue-600 px-4 py-2 text-white rounded-xl cursor-pointer">
+                                        Scan Pengembalian
+                                    </button>
+                                @endif
+                                @if ($detail->status_pengambilan != 'diambil' && $peminjaman->status == 'disetujui')
+                                    <button
+                                        onclick="openScanModal('{{ $peminjaman->id }}','{{ $detail->alat->kode_barang }}')"
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700">
+                                        Scan QR
+                                    </button>
+                                @endif
+                            </div>
 
                         </div>
                     @endforeach

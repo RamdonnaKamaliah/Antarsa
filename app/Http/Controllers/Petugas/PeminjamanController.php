@@ -39,24 +39,22 @@ class PeminjamanController extends Controller
 
 public function verifyScan(Request $request)
 {
-     dd('sampai sini', $request->all());    
-    //handle request
-     if ($request->hasFile('qr_file')) {
+    // Handle upload file QR
+    if ($request->hasFile('qr_file')) {
         $request->validate([
             'qr_file'       => 'required|image',
-            'peminjaman_id' => 'required'
+            'id_peminjaman' => 'required'
         ]);
-        
+
         $file = $request->file('qr_file');
         $filename = 'qr_scan_' . time() . '.' . $file->getClientOriginalExtension();
         $file->move(storage_path('app/temp'), $filename);
         $path = storage_path('app/temp/' . $filename);
 
-        
         $qr = new \Zxing\QrReader($path);
         $kodeBarang = $qr->text();
 
-         @unlink($path);
+        @unlink($path);
 
         if (!$kodeBarang) {
             return back()->with('error', 'QR tidak terbaca, coba foto yang lebih jelas');
@@ -65,48 +63,53 @@ public function verifyScan(Request $request)
         $request->merge(['kode_barang' => $kodeBarang]);
     }
 
-    //validate
+    // Validate
     $request->validate([
-        'kode_barang' => 'required',
+        'kode_barang'   => 'required',
         'id_peminjaman' => 'required'
     ]);
 
+    // Cari detail peminjaman
     $detail = DetailPeminjaman::with(['alat', 'peminjaman'])
         ->where('id_peminjaman', $request->id_peminjaman)
-        ->whereHas('alat', function ($q) use ($request){
-           $q->where('kode_barang', $request->kode_barang);
+        ->whereHas('alat', function ($q) use ($request) {
+            $q->where('kode_barang', $request->kode_barang);
         })
-         ->where('status_pengambilan', '!=', 'diambil')
+        ->where('status_pengambilan', '!=', 'diambil')
         ->first();
 
-        if(!detail){
-            return back()->with('error', 'Barang tidak ditemukan atau sudah diambil');
-        }
-
-        if($detail->alat->stok < $detail->jumlah){
-            return back()->with('error', 'stok tidak mencukupi');
-        }
-
-        $detail->alat->decrement('stok', $detail->jumlah);
-        $detail->update([
-            'status_pengambilan' => 'diambil',
-            'tanggal_pengambilan' => now()
-        ]);
-
-         // Cek apakah semua barang sudah diambil
-         $masihAda = $detail->peminjaman
-        ->detail()
-        ->where('status_pengambilan', '!=', 'diambil') 
-        ->exists();
-
-    if (!$masihAda) {
-        $detail->peminjaman->update([
-            'status'         => 'dipinjam',
-            'tanggal_diambil' => now()
-        ]);
+    if (!$detail) { // ✅ fix: tadi kurang $
+        return back()->with('error', 'Barang tidak ditemukan atau sudah diambil');
     }
 
-    return back()->with('succes', 'Barang berhasil diverifikasi & diambil');
+    if ($detail->alat->stok < $detail->jumlah) {
+        return back()->with('error', 'Stok tidak mencukupi');
+    }
+
+    // Update stok & status
+    $detail->alat->decrement('stok', $detail->jumlah);
+    $detail->update([
+        'status_pengambilan' => 'diambil',
+        'tanggal_pengambilan' => now()
+    ]);
+    
+    // 2. Ambil instance model Peminjaman (tabel induk)
+    $peminjaman = $detail->peminjaman; 
+
+    // 3. Cek apakah SEMUA detail barang untuk peminjaman ini sudah 'diambil'
+    // Kita cek apakah masih ada yang BELUM 'diambil'
+    $masihAdaBarangBelumDiambil = $peminjaman->detail() // <--- Pastikan nama relasi di model Peminjaman adalah detail()
+        ->where('status_pengambilan', '!=', 'diambil')
+        ->exists();
+
+    // 4. Jika SUDAH TIDAK ADA lagi barang yang belum diambil (artinya semua sudah diambil)
+    if (!$masihAdaBarangBelumDiambil) {
+        $peminjaman->update([
+            'status' => 'diambil', // Mengubah 'disetujui' menjadi 'dipinjam'
+            'tanggal_pengambilan_sebenarnya' => now() // Mengisi tanggal ambil di tabel induk
+        ]);
+    }
+    return back()->with('success', 'Barang berhasil diverifikasi & diambil'); // ✅ fix typo 'succes'
 }
 
     public function reject(Request $request, $id)

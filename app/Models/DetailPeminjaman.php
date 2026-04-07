@@ -12,10 +12,16 @@ class DetailPeminjaman extends Model
         'id_peminjaman',
         'id_alat',
         'jumlah',
-        'kondisi_keluar'
+        'kondisi_keluar',
+        'status_pengambilan',
+        'tanggal_pengambilan'
     ];
 
     public function alat() {
         return $this->belongsTo(Alat::class, 'id_alat');
+    }
+
+    public function peminjaman(){
+        return $this->belongsTo(Peminjaman::class, 'id_peminjaman');
     }
 }

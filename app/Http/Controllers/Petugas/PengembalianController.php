@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
+use App\Models\DetailPeminjaman;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian; 
 use Illuminate\Http\Request;
@@ -21,102 +22,66 @@ class PengembalianController extends Controller
     return view('petugas.pengembalian.index', compact('peminjaman'));
 }
 
+    public function verifyPengembalian(Request $request)
+{
+    // 1. Validasi Input
+    $request->validate([
+        'id_peminjaman' => 'required',
+        'kode_barang'   => 'required', // Hasil scan QR
+        'kondisi'       => 'required|in:baik,rusak', // Berdasarkan flowchart
+    ]);
 
-    public function verifyPengembalian(Request $request, $id)
-    {
-        $request->validate([
-            'kondisi_kembali' => 'required|in:baik,rusak,hilang',
-            'catatan' => 'nullable|string'
-        ]);
+    // 2. Cari Detail Peminjaman yang statusnya 'diambil' (sedang dipinjam)
+    $detail = DetailPeminjaman::with(['alat', 'peminjaman'])
+        ->where('id_peminjaman', $request->id_peminjaman)
+        ->whereHas('alat', function ($q) use ($request) {
+            $q->where('kode_barang', $request->kode_barang);
+        })
+        ->where('status_pengambilan', 'diambil') 
+        ->first();
 
-        $peminjaman = Peminjaman::with('detail.alat', 'user')->findOrFail($id);
-        
-        if($peminjaman->status !== 'diambil') {
-            return redirect()->route('petugas.pengembalian.index')
-                ->with('error', 'Peminjaman tidak valid untuk dikembalikan');
-        }
-
-        // Set tanggal pengembalian sebenarnya
-        $tanggalKembaliSebenarnya = now();
-        $tanggalKembaliRencana = \Carbon\Carbon::parse($peminjaman->tanggal_pengembalian_rencana);
-
-        // Cek apakah pengembalian terlambat 
-        $terlambat = $tanggalKembaliSebenarnya->greaterThan($tanggalKembaliRencana);
-        $hariTerlambat = 0;
-
-        if ($terlambat) {
-            $hariTerlambat = $tanggalKembaliSebenarnya->diffInDays($tanggalKembaliRencana);
-            $masaBlokir = now()->addDays($hariTerlambat);
-            
-            $peminjaman->user->update([
-                'status_blokir' => true,
-                'masa_blokir' => $masaBlokir,
-                'alasan_blokir' => "Terlambat mengembalikan {$hariTerlambat} hari"
-            ]);
-        }
-
-        // Cek Kondisi Alat Baik?
-        $kondisiBaik = $request->kondisi_kembali === 'baik';
-        
-        if (!$kondisiBaik) {
-            $peminjaman->user->update([
-                'status_blokir' => true,
-                'masa_blokir' => now()->addYears(10),
-                'alasan_blokir' => "Menunggu penggantian alat yang {$request->kondisi_kembali}"
-            ]);
-        } else {
-    // $peminjaman->update([
-    //     'status' => 'bermasalah'
-    // ]);
-}
-        
-        // ✅ UPDATE PEMINJAMAN - Set status jadi 'dikembalikan'
-        $peminjaman->update([
-            'status' => 'kembali', // ✅ UBAH INI
-        ]);
-
-        // ✅ BUAT RECORD BARU DI TABEL PENGEMBALIAN
-        $pengembalian = Pengembalian::create([
-            'id_pengembalian' => Str::uuid(),
-            'id_peminjaman' => $peminjaman->id,
-            'tanggal_pengembalian_sebenarnya' => $tanggalKembaliSebenarnya,
-            'status_pelanggaran' => $terlambat || !$kondisiBaik, // true jika ada pelanggaran
-            'catatan' => $request->catatan,
-            'kondisi_kembali' => $request->kondisi_kembali, // ✅ Tambahkan kolom ini di migration jika belum ada
-            'hari_terlambat' => $hariTerlambat,
-            'tanggal_penggantian' => null,
-            'status_penggantian' => $kondisiBaik ? null : 'menunggu' // ✅ Pakai ENUM yang benar
-        ]);
-
-        // Update stok
-        foreach ($peminjaman->detail as $detail) {
-            $qty = (int) $detail->quantity;
-            
-            if ($qty <= 0) {
-                continue;
-            }
-
-            if ($kondisiBaik) {
-                $detail->alat->increment('stok', $qty);
-            }
-            elseif ($request->kondisi_kembali === 'rusak') {
-                $detail->alat->increment('stok_rusak', $qty);
-            }
-        }
-
-        // Log aktivitas
-        Aktivitas::simpanLog('VERIFIKASI', 'PENGEMBALIAN', "Verifikasi pengembalian #{$peminjaman->id} - Kondisi: {$request->kondisi_kembali}");
-
-        $message = 'Pengembalian berhasil diproses';
-        
-        if ($terlambat) {
-            $message .= ". Terlambat {$hariTerlambat} hari";
-        }
-        
-        if (!$kondisiBaik) {
-            $message .= ". User diblokir sampai mengganti alat";
-        }
-
-        return redirect()->route('petugas.pengembalian.index')->with('success', $message);
+    if (!$detail) {
+        return back()->with('error', 'Data peminjaman barang tidak ditemukan atau sudah dikembalikan.');
     }
+
+    return DB::transaction(function () use ($detail, $request) {
+        
+        // 3. Update Status di Tabel Detail
+        $detail->update([
+            'status_pengambilan' => 'kembali',
+            'tanggal_kembali'    => now(),
+            'kondisi_barang'     => $request->kondisi // Simpan catatan kondisi saat kembali
+        ]);
+
+        // 4. Update Stok Alat (Hanya jika kondisi BAIK, stok bertambah lagi)
+        // Berdasarkan flowchart: Jika rusak, biasanya stok tidak langsung bertambah (perlu perbaikan)
+        if ($request->kondisi == 'baik') {
+            $detail->alat->increment('stok', $detail->jumlah);
+        }
+
+        // 5. Cek apakah SEMUA barang dalam transaksi ini sudah kembali
+        $peminjaman = $detail->peminjaman;
+        $masihAdaBarangDipinjam = $peminjaman->detail()
+            ->where('status_pengambilan', 'diambil')
+            ->exists();
+
+        // 6. Jika tidak ada lagi barang yang dipinjam (semua sudah berstatus 'kembali')
+        if (!$masihAdaBarangDipinjam) {
+            
+            // Cek apakah ada barang yang rusak dalam rombongan peminjaman ini
+            $adaKerusakan = $peminjaman->detail()->where('kondisi_barang', 'rusak')->exists();
+            
+            $peminjaman->update([
+                'status' => 'selesai',
+                'tanggal_pengembalian_sebenarnya' => now(),
+                // Opsional: tandai jika ada masalah/kerusakan pada peminjaman ini
+                'keterangan' => $adaKerusakan ? 'Selesai dengan kerusakan' : 'Selesai tanpa kendala'
+            ]);
+        }
+        
+
+        return back()->with('success', 'Barang berhasil dikembalikan dalam kondisi ' . $request->kondisi);
+    });
+}
+   
 }

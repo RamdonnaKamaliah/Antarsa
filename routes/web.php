@@ -6,9 +6,7 @@ use App\Http\Controllers\Admin\AdminPeminjamanController;
 use App\Http\Controllers\Admin\AdminPengembalianController;
 use App\Http\Controllers\Admin\AkunPenggunaController;
 use App\Http\Controllers\Admin\DaftarAlatController;
-use App\Http\Controllers\Admin\DaftarLaporanController;
 use App\Http\Controllers\Admin\KategoriAlatController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Peminjam\DataAlatController;
 use App\Http\Controllers\Peminjam\KeranjangController;
 use App\Http\Controllers\Peminjam\PeminjamanAlatController;
@@ -20,7 +18,6 @@ use App\Http\Controllers\Petugas\PeminjamanController;
 use App\Http\Controllers\Petugas\PengembalianController;
 use App\Http\Controllers\Petugas\PetugasDashboardController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Pengembalian;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,10 +27,6 @@ Route::get('/', function () {
 });
 
 
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -73,6 +66,7 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')
     Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
     Route::post('/pengembalian/verify/{id}', [PengembalianController::class, 'verifyPengembalian'])
     ->name('pengembalian.verifyPengembalian');
+    Route::post('/petugas/pengembalian/cek-qr', [PeminjamanController::class, 'cekQrPengembalian'])->name('petugas.pengembalian.cekQr');
     Route::get('/laporan/peminjaman', [LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/laporan/peminjaman/unduh', [LaporanController::class, 'unduh'])->name('laporan.unduh');
 
@@ -97,7 +91,6 @@ Route::middleware(['auth', 'role:peminjam'])->prefix('peminjam')->name('peminjam
     ->name('keranjang.update');
     Route::get('peminjaman-alat/{id}/download-qr', [PeminjamanAlatController::class, 'downloadQr'])
          ->name('peminjaman.downloadQr');
-    //simpan dari menu cekout ke tabel peminjaman
     Route::post('/keranjang/checkout', [PeminjamanAlatController::class, 'store'])
     ->name('keranjang.checkout');
     Route::get('/peminjaman/{id}', [PeminjamanAlatController::class, 'show'])->name('peminjaman.show');

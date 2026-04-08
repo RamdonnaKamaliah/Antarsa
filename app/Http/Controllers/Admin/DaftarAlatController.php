@@ -117,7 +117,7 @@ class DaftarAlatController extends Controller
 
         $foto = $request->file('foto_alat')->store('alat', 'public');
         $alat->foto_alat = $foto;
-    }
+    }   
 
     $alat->save();
 

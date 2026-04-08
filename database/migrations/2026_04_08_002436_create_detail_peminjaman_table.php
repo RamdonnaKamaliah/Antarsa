@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_peminjaman', function (Blueprint $table) {
-            $table->id();
+             $table->id();
             $table->uuid('id_detail_peminjaman')->unique();
             $table->foreignId('id_peminjaman')->constrained('peminjaman')->onDelete('cascade');
             $table->foreignId('id_alat')->constrained('alat')->onDelete('cascade');
             $table->integer('jumlah');
+            $table->enum('kondisi_barang', ['baik', 'rusak'])->nullable();
+            $table->enum('status_pengambilan', ['menunggu', 'diambil', 'kembali'])->default('menunggu');
             $table->timestamps();
         });
     }

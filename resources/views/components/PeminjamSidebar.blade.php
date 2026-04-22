@@ -19,7 +19,7 @@
     <nav class="flex-1 px-3 space-y-4">
 
         {{-- Dashboard --}}
-        <a href="{{ route('peminjam.dashboard') }}"
+        <a href="{{ route('siswa.dashboard') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl font-sans
             {{ request()->routeIs('peminjam.dashboard') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-gauge-high w-5 text-center"></i>
@@ -27,7 +27,7 @@
         </a>
 
         {{-- Daftar Alat --}}
-        <a href="{{ route('peminjam.data-alat.index') }}"
+        <a href="{{ route('siswa.data-alat.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
             {{ request()->routeIs('peminjam.data-alat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-toolbox w-5 text-center"></i>
@@ -35,7 +35,7 @@
         </a>
 
         {{-- Peminjaman --}}
-        <a href="{{ route('peminjam.peminjamAlat') }}"
+        <a href="{{ route('siswa.peminjamAlat') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
             {{ request()->routeIs('peminjam.peminjamAlat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-users w-5 text-center"></i>
@@ -43,15 +43,15 @@
         </a>
 
         {{-- pengembalian --}}
-        <a href="{{ route('peminjam.pengembalianAlat') }}"
+        {{-- <a href="{{ route('siswa.p') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
             {{ request()->routeIs('peminjam.pengembalianAlat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-toolbox w-5 text-center"></i>
             <span>Pengembalian</span>
-        </a>
+        </a> --}}
 
         {{-- keranjang --}}
-        <a href="{{ route('peminjam.keranjang.index') }}"
+        <a href="{{ route('siswa.keranjang.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
             {{ request()->routeIs('peminjam.keranjang*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-box w-5 text-center"></i>

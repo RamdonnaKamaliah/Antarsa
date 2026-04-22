@@ -44,8 +44,8 @@
                         <!-- Image Section -->
                         <div
                             class="relative h-48 bg-linear-to-br from-blue-100 to-purple-100 dark:from-slate-700 dark:to-slate-600 overflow-hidden">
-                            @if ($row->foto_alat)
-                                <img src="{{ Storage::url($row->foto_alat) }}" alt="{{ $row->nama_alat }}"
+                            @if ($row->foto_buku)
+                                <img src="{{ Storage::url($row->foto_buku) }}" alt="{{ $row->nama_alat }}"
                                     class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
                             @else
                                 <img src="{{ asset('assets/no-image.png') }}" alt="No Image"
@@ -89,15 +89,15 @@
 
                             <!-- Action Buttons -->
                             <div class="flex flex-col gap-2">
-                                <a href="{{ route('peminjam.data-alat.show', $row->id) }}"
+                                <a href="{{ route('siswa.data-alat.show', $row->id) }}"
                                     class="w-full text-center px-4 py-2.5 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
                                     <i class="fas fa-info-circle mr-2"></i>Lihat Detail
                                 </a>
 
                                 @if ($row->stok > 0)
-                                    <a href="{{ route('peminjam.data-alat.create', ['alat_id' => $row->id]) }}"
+                                    <a href="{{ route('siswa.data-alat.store', ['alat_id' => $row->id]) }}"
                                         class="w-full text-center px-4 py-2.5 bg-linear-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                                        <i class="fas fa-hand-holding mr-2"></i>Pinjam Alat
+                                        <i class="fas fa-hand-holding mr-2"></i>Pinjam Buku
                                     </a>
                                 @else
                                     <button disabled

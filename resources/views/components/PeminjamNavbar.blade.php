@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <a href="{{ route('peminjam.profile-peminjam.index') }}"
+    <a href="{{ route('siswa.profile-peminjam.index') }}"
         class="flex items-center gap-3 rounded-xl
                hover:bg-primary_light/20
                px-3 py-2 transition group">

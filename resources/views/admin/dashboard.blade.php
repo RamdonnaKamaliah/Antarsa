@@ -7,17 +7,17 @@
         {{-- Card --}}
         <div class="bg-white rounded-2xl shadow p-6 hover:shadow-xl transition duration-300">
             <h2 class="text-gray-600 text-sm">Total User</h2>
-            <p class="text-3xl font-bold text-gray-800 mt-2">{{ $stats['total_pengguna'] }}</p>
+            <p class="text-3xl font-bold text-gray-800 mt-2">123</p>
         </div>
 
         <div class="bg-white rounded-2xl shadow p-6 hover:shadow-xl transition duration-300">
             <h2 class="text-gray-600 text-sm">Total Alat</h2>
-            <p class="text-3xl font-bold text-gray-800 mt-2">{{ $stats['total_alat'] }}</p>
+            <p class="text-3xl font-bold text-gray-800 mt-2">35</p>
         </div>
 
         <div class="bg-white rounded-2xl shadow p-6 hover:shadow-xl transition duration-300">
             <h2 class="text-gray-600 text-sm">Total Peminjaman</h2>
-            <p class="text-3xl font-bold text-gray-800 mt-2">{{ $stats['total_peminjaman'] }}</p>
+            <p class="text-3xl font-bold text-gray-800 mt-2">35</p>
         </div>
 
     </div>

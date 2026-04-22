@@ -41,6 +41,25 @@
 
                     </div>
 
+                    <div class="pt-4 mb-4">
+                        <label for="name" class="block text-gray-700 font-semibold mb-2 dark:text-gray-300">
+                            username<span class="text-red-500">*</span>
+                        </label>
+
+                        <input type="text" id="username" name="username" placeholder="Input username"
+                            value="{{ old('username') }}" @class([
+                                'w-full p-3 rounded-lg transition',
+                                'border border-red-500 focus:ring-red-400 focus:border-red-500' => $errors->has(
+                                    'username'),
+                                'border border-gray-300 focus:ring-blue-400 focus:border-blue-500' => !$errors->has(
+                                    'username'),
+                            ])>
+                        @error('username')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
+                    </div>
+
                     {{-- input email --}}
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700 font-semibold mb-2 dark:text-gray-300">
@@ -61,20 +80,20 @@
                     </div>
 
                     {{-- input role --}}
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label for="role" class="block text-gray-700 font-semibold mb-2 dark:text-gray-300">
                             Role<span class="text-red-500">*</span>
                         </label>
 
                         <select name="role" class="w-full p-3 border rounded-lg">
-                            <option value="peminjam">Peminjam</option>
+                            <option value="peminjam">Pemi</option>
                             <option value="petugas">Petugas</option>
                         </select>
 
                         @error('role')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
 
 

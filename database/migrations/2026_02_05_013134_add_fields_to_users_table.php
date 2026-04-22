@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->uuid('id_user')->unique()->after('id');
-            // $table->string('nama_lengkap')->after('id_user');
-            $table->enum('role', ['admin', 'petugas', 'peminjam'])->default('peminjam')->after('password');
-             $table->boolean('status_blokir')->default(false)->after('role');
-            $table->boolean('masa_blokir')->nullable()->after('status_blokir');
+            $table->string('username')->unique()->after('name');
+            $table->enum('role', ['admin', 'siswa'])->default('siswa')->after('password');
         });
     }
 

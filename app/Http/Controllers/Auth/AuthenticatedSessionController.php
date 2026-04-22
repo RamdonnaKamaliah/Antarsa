@@ -61,11 +61,8 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        if ($user->role === 'petugas') {
-            return redirect()->route('petugas.dashboard');
-        }
 
-        return redirect()->route('peminjam.dashboard');
+        return redirect()->route('dashboard');
 
     }
 

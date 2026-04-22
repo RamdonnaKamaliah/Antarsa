@@ -56,7 +56,7 @@
                             <div class="flex items-center gap-3">
 
                                 {{-- Minus --}}
-                                <form action="{{ route('peminjam.keranjang.update', $id) }}" method="POST">
+                                <form action="{{ route('siswa.keranjang.update', $id) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="jumlah" value="{{ $item['jumlah'] - 1 }}">
                                     <button type="submit"
@@ -73,7 +73,7 @@
                                 </span>
 
                                 {{-- Plus --}}
-                                <form action="{{ route('peminjam.keranjang.update', $id) }}" method="POST">
+                                <form action="{{ route('siswa.keranjang.update', $id) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="jumlah" value="{{ $item['jumlah'] + 1 }}">
                                     <button type="submit"
@@ -84,7 +84,7 @@
                                 </form>
 
                                 {{-- Hapus --}}
-                                <form action="{{ route('peminjam.keranjang.hapus', $id) }}" method="POST">
+                                <form action="{{ route('siswa.keranjang.hapus', $id) }}" method="POST">
                                     @csrf
                                     <button type="submit"
                                         class="w-10 h-10 flex items-center justify-center
@@ -116,7 +116,7 @@
                         </h3>
 
                         {{-- FORM CHECKOUT --}}
-                        <form action="{{ route('peminjam.keranjang.checkout') }}" method="POST">
+                        <form action="{{ route('siswa.keranjang.checkout') }}" method="POST">
                             @csrf
 
                             {{-- Hidden Selected --}}
@@ -127,7 +127,7 @@
                                 <label class="block text-gray-700 dark:text-white mb-1">
                                     Tanggal Pengambilan
                                 </label>
-                                <input type="date" name="tanggal_pengambilan_rencana"
+                                <input type="date" name="tanggal_booking"
                                     class="w-full rounded-lg border-gray-300 dark:bg-slate-700 dark:text-white" required>
                             </div>
 
@@ -136,18 +136,10 @@
                                 <label class="block text-gray-700 dark:text-white mb-1">
                                     Tanggal Pengembalian
                                 </label>
-                                <input type="date" name="tanggal_pengembalian_rencana"
+                                <input type="date" name="tanggal_kembali_rencana"
                                     class="w-full rounded-lg border-gray-300 dark:bg-slate-700 dark:text-white" required>
                             </div>
 
-                            {{-- Catatan --}}
-                            <div class="mb-4">
-                                <label class="block text-gray-700 dark:text-white mb-1">
-                                    Catatan / Alasan Peminjaman
-                                </label>
-                                <textarea name="alasan_peminjaman" rows="3"
-                                    class="w-full rounded-lg border-gray-300 dark:bg-slate-700 dark:text-white" required></textarea>
-                            </div>
 
                             {{-- Tombol --}}
                             <div class="flex justify-end gap-3 mt-6">

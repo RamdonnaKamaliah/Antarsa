@@ -8,7 +8,7 @@
         <div class="w-full bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8">
 
             <div class="mb-6">
-                <a href="{{ route('peminjam.peminjamAlat') }}"
+                <a href="{{ route('siswa.peminjamAlat') }}"
                     class="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-2">
                     <i class="fas fa-arrow-left text-xl"></i>
                 </a>
@@ -55,34 +55,29 @@
             </div>
 
             {{-- Alasan --}}
-            <div class="mb-8">
-                <p class="text-sm text-gray-500 dark:text-gray-300 mb-2">
-                    Alasan / Catatan
-                </p>
-                <div class="p-4 rounded-xl bg-gray-100 dark:bg-slate-700 text-gray-800 dark:text-white">
-                    {{ $peminjaman->alasan_peminjaman }}
+            @if ($peminjaman->status === 'ditolak')
+                <div class="mb-8">
+                    <p class="text-sm text-gray-500 dark:text-gray-300 mb-2">
+                        Alasan / Catatan
+                    </p>
+                    <div class="p-4 rounded-xl bg-gray-100 dark:bg-slate-700 text-gray-800 dark:text-white">
+                        {{ $peminjaman->alasan_penolakan }}
+                    </div>
                 </div>
-            </div>
+            @endif
 
             {{-- List Alat --}}
             <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">
-                Daftar Alat Dipinjam
+                Alat Dipinjam
             </h3>
 
             <div class="space-y-4">
-                @foreach ($peminjaman->detail as $item)
-                    <div class="flex justify-between items-center p-4 rounded-xl bg-gray-50 dark:bg-slate-700">
-                        <p class="font-semibold text-gray-800 dark:text-white">
-                            {{ $item->alat->nama_alat }}
-                        </p>
-                        <span class="px-3 py-1 rounded-lg bg-blue-100 text-blue-700 font-bold">
-                            {{ $item->jumlah }} pcs
-                        </span>
-                    </div>
-                @endforeach
+                <div class="flex justify-between items-center p-4 rounded-xl bg-gray-50 dark:bg-slate-700">
+                    {{ $peminjaman->buku_id }}
+                </div>
             </div>
 
-           
+
             {{-- Jika Pending --}}
             @if ($peminjaman->status == 'pending')
                 <div class="mt-10 text-center">

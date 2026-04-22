@@ -4,24 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
-use App\Models\Alat;
-use App\Models\KategoriAlat;
+use App\Models\Buku;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class KategoriAlatController extends Controller
+class KategoriAlatController extends Controller     
 {
     public function index()
     {
           $stats = [
-        'total_alat' => Alat::count(),
-        'total_kategori' => Alat::whereNotNull('id_kategori')->count(),
-        'total_qrcode' => Alat::distinct('qr_code')->count(),
-        'total_stok' =>Alat::sum('stok'), 
+        'total_alat' => Buku::count(),
+        'total_kategori' => Buku::whereNotNull('kategori_id')->count(),
+        'total_stok' =>Buku::sum('stok'), 
     ];
         
-        $kategori = KategoriAlat::latest()->get();
-        return view('admin.kategori_alat.index', compact('kategori', 'stats'));
+        $kategori = Kategori::latest()->get();
+        return view('admin.kategori_alat.index', compact('kategori'));
     }
 
     public function create() {
@@ -31,7 +30,7 @@ class KategoriAlatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kategori' => 'required|string|max:100|unique:kategori_alats,nama_kategori',
+            'nama_kategori' => 'required|string|max:100|unique:kategori,nama_kategori',
         ], [
             'nama_kategori.required' => 'Nama kategori wajib diisi.',
             'nama_kategori.unique'   => 'Kategori "' . $request->nama_kategori . '" sudah ada.',
@@ -39,7 +38,7 @@ class KategoriAlatController extends Controller
         ]);
 
         try {
-            KategoriAlat::create([
+            Kategori::create([
                 'id_kategori'   => Str::uuid(),
                 'nama_kategori' => $request->nama_kategori
             ]);
@@ -58,12 +57,12 @@ class KategoriAlatController extends Controller
     }
 
     public function edit(String $id){
-        $kategori = KategoriAlat::where('id', $id)->firstOrFail();
+        $kategori = Kategori::where('id', $id)->firstOrFail();
         return view('admin.kategori_alat.edit', compact('kategori'));
     }
 
     public function update(Request $request, $id){
-        $kategori = KategoriAlat::where('id', $id)->firstOrFail();
+        $kategori = Kategori::where('id', $id)->firstOrFail();
 
         $request->validate([
             'nama_kategori' => 'required|string|max:100|unique:kategori_alats,nama_kategori',
@@ -92,7 +91,7 @@ class KategoriAlatController extends Controller
     }
 
     public function destroy(String $id) {
-        $kategori = KategoriAlat::where('id', $id)->firstOrFail();
+        $kategori = Kategori::where('id', $id)->firstOrFail();
 
         $namaKategori = $kategori->nama_kategori;
 

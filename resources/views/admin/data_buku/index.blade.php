@@ -1,51 +1,52 @@
 @extends('layouts.admin')
 
-@section('title', 'akun pengguna')
+@section('title', 'daftar alat')
 
 @section('content')
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 px-1 mb-2">
+
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Pengguna</p>
+                <p class="text-xs text-slate-500">Total Alat</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-users text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-box text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_pengguna'] }}</h3>
-            <p class="text-[11px] text-slate-400">total</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">98</h3>
+            <p class="text-[11px] text-slate-400">Total</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Pengguna diblokir</p>
+                <p class="text-xs text-slate-500">Total Kategori Alat</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-lock text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-tags text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">123</h3>
-            <p class="text-[11px] text-slate-400">total</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">09</h3>
+            <p class="text-[11px] text-slate-400">Total</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Role</p>
+                <p class="text-xs text-slate-500">Total Qr Code</p>
                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-circle text-sm text-blue-600 dark:text-blue-400"></i>
+                    <i class="fas fa-qrcode text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_role'] }}</h3>
-            <p class="text-[11px] text-slate-400">total</p>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">241</h3>
+            <p class="text-[11px] text-slate-400">Total</p>
         </div>
 
-        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700">
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/60">
             <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-slate-500">Total Email</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-message text-sm text-blue-600 dark:text-blue-400"></i>
+                <p class="text-xs text-slate-500">Total Stok</p>
+                <div class="w-8 h-8 rounded-lg bg-tertiary/100 dark:bg-blue-900/40 flex items-center justify-center">
+                    <i class="fas fa-cubes text-sm text-primary dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_email'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">098</h3>
             <p class="text-[11px] text-slate-400">Total</p>
         </div>
     </div>
@@ -54,9 +55,9 @@
         <div class="bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 p-4 rounded-lg shadow-md dark:shadow-lg">
             <h2 class="text-center text-xl font-bold mb-4 text-gray-800 dark:text-white">Data Alat Management</h2>
             <div class="flex flex-wrap justify-end gap-2">
-                <a href="{{ route('admin.akun-pengguna.create') }}">
+                <a href="{{ route('admin.data-buku.create') }}">
                     <button
-                        class="px-6 py-3 cursor-pointer bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
+                        class="px-6 py-3 bg-linear-to-r cursor-pointer from-blue-600 to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
                         <i class="fas fa-plus mr-2"></i>
                         Create Data
                     </button>
@@ -65,38 +66,45 @@
 
 
             <div class="overflow-x-auto mt-4">
-                <table id="akunTable" class="w-full text-xs md:text-sm dark:border-gray-600">
+                <table id="alatTable" class="w-full border border-gray-300 text-xs md:text-sm dark:border-gray-600">
                     <thead class="bg-gray-200 text-gray-800 dark:bg-slate-700 dark:text-gray-100">
                         <tr>
-                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Nama</th>
-                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Username</th>
-                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Email</th>
-                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Role</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Foto</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Judul Buku</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Penulis</th>
+                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Stok</th>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($akun as $row)
+                        @foreach ($Buku as $row)
                             <tr>
-                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">{{ $row->name }}
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">
+                                    @if ($row->foto_buku)
+                                        <img src="{{ Storage::url($row->foto_buku) }}" alt="Foto Alat"
+                                            class="w-16 h-16 object-cover rounded-md">
+                                    @else
+                                        <img src="{{ 'assets/no-image.png' }}" alt="No Image"
+                                            class="w-16 h-16 object-cover rounded-md">
+                                    @endif
                                 </td>
-                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">
-                                    {{ $row->username }}
-                                </td>
-                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">{{ $row->email }}
-                                </td>
-                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">{{ $row->role }}
-                                </td>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">{{ $row->judul_buku }}</td>
 
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">{{ $row->penulis }}</td>
+                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">{{ $row->stok }}</td>
                                 <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">
                                     <div class="flex justify-center space-x-1 md:space-x-2">
+                                        <a href="{{ route('admin.data-buku.edit', $row->id) }}"
+                                            class="text-amber-600 hover:text-white bg-amber-50 hover:bg-amber-500 dark:bg-amber-900/30 dark:hover:bg-amber-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
+                                            <i class="fas fa-edit"></i> <span class="hidden sm:inline">Edit</span>
+                                        </a>
 
-                                        <a href="{{ route('admin.akun-pengguna.show', $row->id) }}"
+                                        <a href="{{ route('admin.data-buku.show', $row->id) }}"
                                             class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 dark:bg-green-900/30 dark:hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
                                             <i class="fas fa-eye"></i> <span class="hidden sm:inline">Show</span>
                                         </a>
 
-                                        <form action="{{ route('admin.akun-pengguna.destroy', $row->id) }}" method="POST">
+                                        <form action="{{ route('admin.data-buku.destroy', $row->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button"
@@ -107,20 +115,6 @@
                                             </button>
 
                                         </form>
-                                        @if ($row->status_blokir)
-                                            <form action="{{ route('admin.akun-pengguna.unblock', $row->id) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('Yakin ingin membuka blokir akun ini?')">
-                                                @csrf
-                                                @method('PATCH')
-
-                                                <button
-                                                    class="text-green-600 cursor-pointer hover:text-white bg-green-50 hover:bg-green-500 dark:bg-green-900/30 dark:hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
-                                                    Unblock
-                                                    <i class="fa-solid fa-lock-open"></i>
-                                                </button>
-                                            </form>
-                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -138,10 +132,10 @@
                 console.log("jQuery version: " + $.fn.jquery);
 
                 if (!$.fn.DataTable.isDataTable('#kategoriTable')) {
-                    $('#akunTable').DataTable({
+                    $('#alatTable').DataTable({
                         "responsive": true,
                         "language": {
-                            "search": "Cari Akun:",
+                            "search": "Cari Kategori:",
                             "lengthMenu": "Tampilkan _MENU_ data",
                         }
                     });

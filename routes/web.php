@@ -5,27 +5,32 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminPeminjamanController;
 use App\Http\Controllers\Admin\AdminPengembalianController;
 use App\Http\Controllers\Admin\AkunPenggunaController;
-use App\Http\Controllers\Admin\DaftarAlatController;
+use App\Http\Controllers\Admin\DaftarBukuController;
 use App\Http\Controllers\Admin\KategoriAlatController;
-use App\Http\Controllers\Peminjam\DataAlatController;
-use App\Http\Controllers\Peminjam\KeranjangController;
-use App\Http\Controllers\Peminjam\PeminjamanAlatController;
-use App\Http\Controllers\Peminjam\PeminjamDashboardController;
+use App\Http\Controllers\Siswa\KeranjangController;
+use App\Http\Controllers\Siswa\PeminjamanAlatController;
+use App\Http\Controllers\siswa\SiswaDashboardController;
 use App\Http\Controllers\Peminjam\PeminjamProfileController;
 use App\Http\Controllers\Peminjam\PengembalianAlatController;
-use App\Http\Controllers\Petugas\LaporanController;
-use App\Http\Controllers\Petugas\PeminjamanController;
-use App\Http\Controllers\Petugas\PengembalianController;
-use App\Http\Controllers\Petugas\PetugasDashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\siswa\DataBukuController;
+use App\Http\Controllers\siswa\KeranjangController as SiswaKeranjangController;
+use App\Http\Controllers\siswa\PeminjamanBukuController;
+use App\Http\Controllers\siswa\SiswaProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return auth()->check()
-        ? redirect()->route('dashboard')
-        : redirect()->route('login');
+    if (auth()->check()) {
+        if (auth()->user()->role == 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif (auth()->user()->role == 'petugas') {
+            return redirect()->route('petugas.dashboard');
+        } else {
+            return redirect()->route('siswa.dashboard');
+        }
+    }
+    return redirect()->route('login');
 });
-
 
 
 Route::middleware('auth')->group(function () {
@@ -38,8 +43,11 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::patch('/approve/{id}', [AdminPeminjamanController::class, 'approve'])->name('approve');
+    Route::patch('/kembali/{id}', [AdminPeminjamanController::class, 'kembali'])->name('kembali');
+    Route::patch('/reject/{id}', [AdminPeminjamanController::class, 'reject'])->name('reject');
     Route::resource('/kategori-alat', KategoriAlatController::class);
-    Route::resource('/data-alat', DaftarAlatController::class);
+    Route::resource('/data-buku', DaftarBukuController::class);
     Route::resource('/akun-pengguna', AkunPenggunaController::class);
     Route::resource('/aktivitas', AdminAktivitasController::class);
     Route::resource('/peminjaman', AdminPeminjamanController::class);
@@ -48,52 +56,28 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 });     
 
-//petugas
-Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')->group(function () {
 
-    Route::get('/dashboard', [PetugasDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian');
-    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+//siswa
+Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->name('siswa.')->group(function () {
 
-    // peminjaman
-    Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
-    Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
-    Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
-    Route::post('/peminjaman/{id}/approve', [PeminjamanController::class, 'approve'])->name('peminjaman.approve');
-    Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
-    Route::get('/peminjaman/{id}/scan', [PeminjamanController::class, 'scan'])->name('peminjaman.scan');
-    Route::post('/peminjaman/scan/verify', [PeminjamanController::class, 'verifyScan'])->name('peminjaman.scan.verify');
-    Route::post('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
-    Route::post('/pengembalian/verify/{id}', [PengembalianController::class, 'verifyPengembalian'])
-    ->name('pengembalian.verifyPengembalian');
-    Route::post('/petugas/pengembalian/cek-qr', [PeminjamanController::class, 'cekQrPengembalian'])->name('petugas.pengembalian.cekQr');
-    Route::get('/laporan/peminjaman', [LaporanController::class, 'index'])->name('laporan.index');
-    Route::get('/laporan/peminjaman/unduh', [LaporanController::class, 'unduh'])->name('laporan.unduh');
-
-    
-});
-
-//peminjam
-Route::middleware(['auth', 'role:peminjam'])->prefix('peminjam')->name('peminjam.')->group(function () {
-
-    Route::get('/dashboard', [PeminjamDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('data-alat', DataAlatController::class);
-    Route::get('/peminjamAlat', [PeminjamanAlatController::class, 'index'])->name('peminjamAlat');
-    Route::get('/pengembalianAlat', [PengembalianAlatController::class, 'index'])->name('pengembalianAlat');
-    Route::get('/pengembalianAlat/{id}', [PengembalianAlatController::class, 'show'])->name('pengembalianAlat.show');
-    Route::resource('/profile-peminjam', PeminjamProfileController::class);
+    Route::get('/dashboard', [SiswaDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('data-alat', DataBukuController::class);
+    Route::get('/peminjamAlat', [PeminjamanBukuController::class, 'index'])->name('peminjamAlat');
+    // Route::get('/pengembalianAlat', [PengembalianAlatController::class, 'index'])->name('pengembalianAlat');
+    // Route::get('/pengembalianAlat/{id}', [PengembalianAlatController::class, 'show'])->name('pengembalianAlat.show');
+    Route::resource('/profile-peminjam', SiswaProfileController::class);
     Route::get('/keranjang', [KeranjangController::class, 'index'])
     ->name('keranjang.index');
-    Route::post('/keranjang/tambah/{id}', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
+    Route::post('/keranjang/tambah/{id}', [SiswaKeranjangController::class, 'tambah'])->name('keranjang.tambah');
     Route::post('/keranjang/hapus/{id}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
-    Route::post('/keranjang/checkout', [KeranjangController::class, 'checkout'])->name('keranjang.checkout');
+    Route::post('/keranjang/checkout' , [KeranjangController::class, 'checkout'])->name('keranjang.checkout');
     Route::post('/keranjang/update/{id}', [KeranjangController::class, 'update'])
     ->name('keranjang.update');
-    Route::get('peminjaman-alat/{id}/download-qr', [PeminjamanAlatController::class, 'downloadQr'])
+    Route::get('peminjaman-alat/{id}/download-qr', [PeminjamanBukuController::class, 'downloadQr'])
          ->name('peminjaman.downloadQr');
-    Route::post('/keranjang/checkout', [PeminjamanAlatController::class, 'store'])
+    Route::post('/keranjang/checkout', [PeminjamanBukuController::class, 'store'])
     ->name('keranjang.checkout');
-    Route::get('/peminjaman/{id}', [PeminjamanAlatController::class, 'show'])->name('peminjaman.show');
+    Route::get('/peminjaman/{id}', [PeminjamanBukuController::class, 'show'])->name('peminjaman.show');
 
 });
 

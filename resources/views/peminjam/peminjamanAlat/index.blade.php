@@ -80,12 +80,12 @@
                                 <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2 text-center">
                                     <div class="flex justify-center space-x-1 md:space-x-2">
 
-                                        <a href="{{ route('peminjam.peminjaman.show', $row->id) }}"
+                                        <a href="{{ route('siswa.peminjaman.show', $row->id) }}"
                                             class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 dark:bg-green-900/30 dark:hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
                                             <i class="fas fa-eye"></i> <span class="hidden sm:inline">Show</span>
                                         </a>
 
-                                        <form action="{{ route('admin.data-alat.destroy', $row->id) }}" method="POST">
+                                        <form action="{{ route('admin.peminjaman.destroy', $row->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button"

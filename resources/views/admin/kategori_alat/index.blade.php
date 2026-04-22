@@ -12,7 +12,7 @@
                     <i class="fas fa-box text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_alat'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">09</h3>
             <p class="text-[11px] text-slate-400">Total</p>
         </div>
 
@@ -23,7 +23,7 @@
                     <i class="fas fa-tags text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_kategori'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">723</h3>
             <p class="text-[11px] text-slate-400">Total</p>
         </div>
 
@@ -34,7 +34,7 @@
                     <i class="fas fa-qrcode text-sm text-blue-600 dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_qrcode'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">234</h3>
             <p class="text-[11px] text-slate-400">Total</p>
         </div>
 
@@ -45,7 +45,7 @@
                     <i class="fas fa-cubes text-sm text-primary dark:text-blue-400"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_stok'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">098</h3>
             <p class="text-[11px] text-slate-400">Total</p>
         </div>
     </div>

@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Password;
+use App\Mail\KirimPasswordUser;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash; // Untuk Hash::make
+use Illuminate\Support\Str; // Untuk Str::random dan Str::uuid
 
 
 class AkunPenggunaController extends Controller
@@ -14,7 +17,6 @@ class AkunPenggunaController extends Controller
    public function index() {
     $stats = [
         'total_pengguna' => User::count(),
-        'total_diblokir' => User::where('status_blokir', 1)->count(),
         'total_role' => User::distinct('role')->count(),
         'total_email' => User::count(), 
     ];
@@ -33,20 +35,22 @@ class AkunPenggunaController extends Controller
     public function store(Request $request) {
         $request->validate([
             'name' => 'required|string|max:100',
+            'username' => 'required|string|max:100',
             'email' => 'required|email|unique:users,email',
-            'role' => 'required|in:peminjam,petugas'
         ]);
+
+        $passwordRandom = Str::random(8);
 
         $user = User::create([
             'name' => $request->name,
+            'username' => $request->username,
             'email'=> $request->email,
-            'password' => null,
-            'role' => $request->role
+            'password' => Hash::make($passwordRandom),
+            'role' => 'siswa',
+            'id_user' => Str::uuid()
         ]);
 
-        Password::sendResetLink([
-            'email' => $user->email
-        ]);
+        Mail::to($user->email)->send(new KirimPasswordUser($user->name, $passwordRandom));
 
         Aktivitas::simpanLog('Tambah', 'Akun Pengguna', 'Menambah akun pengguna:' . $user->name );
 

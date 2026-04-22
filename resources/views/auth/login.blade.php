@@ -62,6 +62,15 @@
                     Login
                 </button>
 
+
+                <div class="flex items-center justify-center">
+                    <a href="{{ route('register') }}">
+                        <p class="text-md tracking-widest text-primary mb-3" data-aos="fade-right">
+                            Tidak punya akun? <span class="hover:underline font-bold">Register</span>
+                        </p>
+                    </a>
+                </div>
+
             </form>
 
         </div>

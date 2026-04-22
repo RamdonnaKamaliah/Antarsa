@@ -35,11 +35,11 @@
         </a>
 
         {{-- Daftar Alat --}}
-        <a href="{{ route('admin.data-alat.index') }}"
+        <a href="{{ route('admin.data-buku.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
-            {{ request()->routeIs('admin.data-alat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
+            {{ request()->routeIs('admin.data-buku*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-toolbox w-5 text-center"></i>
-            <span>Daftar Alat</span>
+            <span>Daftar Buku</span>
         </a>
 
         {{-- Kategori Alat --}}
@@ -47,7 +47,7 @@
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
             {{ request()->routeIs('admin.kategori-alat*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-tags w-5 text-center"></i>
-            <span>Kategori Alat</span>
+            <span>Kategori Buku</span>
         </a>
 
         {{-- peminjaman --}}
@@ -55,16 +55,16 @@
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
             {{ request()->routeIs('admin.peminjaman*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-box-open w-5 text-center"></i>
-            <span>Peminjaman</span>
+            <span>Transaksi</span>
         </a>
 
         {{-- pengembalian --}}
-        <a href="{{ route('admin.pengembalian.index') }}"
+        {{-- <a href="{{ route('admin.pengembalian.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
             {{ request()->routeIs('admin.pengembalian*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
             <i class="fa-solid fa-undo w-5 text-center"></i>
             <span>Pengembalian</span>
-        </a>
+        </a> --}}
 
         {{-- Aktivitas --}}
         <a href="{{ route('admin.aktivitas.index') }}"

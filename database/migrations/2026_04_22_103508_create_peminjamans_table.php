@@ -23,7 +23,7 @@ return new class extends Migration
     $table->date('tgl_kembali_sebenarnya')->nullable(); 
     
     // Status & Keterangan
-    $table->enum('status', ['pending', 'disetujui', 'ditolak', 'dipinjam', 'kembali'])->default('pending');
+    $table->enum('status', ['pending', 'disetujui', 'ditolak', 'dipinjam', 'kembali', 'expired'])->default('pending');
     $table->text('alasan_penolakan')->nullable();
     
     $table->timestamps();

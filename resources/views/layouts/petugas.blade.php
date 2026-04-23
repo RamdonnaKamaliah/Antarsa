@@ -12,7 +12,7 @@
 
 </head>
 
-<body class="bg-gray-50 dark:bg-slate-900 overflow-x-hidden h-screen flex">
+<body class="bg-gray-50 bg-slate-900 overflow-x-hidden h-screen flex">
 
     <aside class="fixed inset-y-0 left-0 z-50 shadow-xl transition-all duration-300 xl:translate-x-0 -translate-x-full"
         id="sidebar">

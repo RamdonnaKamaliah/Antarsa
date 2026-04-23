@@ -19,8 +19,8 @@
                 @yield('title')
             </h3>
             <p class="text-xs text-gray-500 hidden sm:block">
-                <span class="text-primary font-bold">ARSA</span> - <span class="text-gray-800 font-bold">Aplikasi
-                    Rekapitulasi Sarana Alat</span>
+                <span class="text-primary font-bold">ANTARSA</span> - <span class="text-gray-800 font-bold">Aplikasi
+                    Antrian Pustaka</span>
             </p>
         </div>
     </div>

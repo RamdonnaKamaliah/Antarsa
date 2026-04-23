@@ -9,7 +9,7 @@
         <img src="{{ asset('assets/logo/logo-arsa.png') }}"
             class="w-10 h-10 rounded-xl border border-gray-200 bg-white shadow-sm">
         <span class="text-xl font-bold text-slate-800">
-            ARSA
+            ANTARSA
         </span>
     </div>
 
@@ -79,7 +79,7 @@
                 @csrf
                 <button type="submit"
                     class="flex w-full items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium cursor-pointer
-                           text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition">
+                           text-red-500 hover:bg-red-50 hover:bg-red-500/10 transition">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Logout
                 </button>

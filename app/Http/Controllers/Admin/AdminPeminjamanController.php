@@ -30,26 +30,37 @@ class AdminPeminjamanController extends Controller
         return view('admin.Peminjaman.index', compact('peminjaman', 'stats'));
     }
 
-    public function approve($id){
-        $Peminjaman = Peminjamans::findOrFail($id);
+   public function approve($id) {
+    $Peminjaman = Peminjamans::findOrFail($id);
+    $userIdSiswa = $Peminjaman->user_id; // Pastikan pakai ID Siswa, bukan ID Admin!
 
-        $buku = Buku::find($Peminjaman->buku_id);
+    // Cek tunggakan siswa tersebut
+    $cekTunggakan = Peminjamans::where('user_id', $userIdSiswa)
+        ->where('status', 'disetujui')
+        ->whereDate('tgl_kembali_rencana', '<', now()->toDateString()) 
+        ->whereNull('tgl_kembali_sebenarnya')
+        ->exists();
 
-        if($buku->stok <= 0){
-            return back()->with('error', 'Gagal approve, stok sudah habis!');
-        }
-        
-        $Peminjaman->status = 'disetujui';
-        $Peminjaman->tgl_pinjam = now();
+    if ($cekTunggakan) {
+        return redirect()->back()->with('error', 'Siswa ini masih punya tunggakan buku yang sudah lewat deadline!');
+    }
 
-        $Peminjaman->save();
+    $buku = Buku::find($Peminjaman->buku_id);
 
-        $buku->stok = $buku->stok - 1; 
-        $buku->save();
+    if(!$buku || $buku->stok <= 0){
+        return back()->with('error', 'Gagal approve, stok sudah habis!');
+    }
+    
+    // Proses Approve
+    $Peminjaman->update([
+        'status' => 'disetujui',
+        'tgl_pinjam' => now()
+    ]);
 
-        return back()->with('success', 'Peminjaman berhasil disetujui');
-        
-    } 
+    $buku->decrement('stok'); // Cara cepat kurangi stok
+
+    return back()->with('success', 'Peminjaman berhasil disetujui');
+}
 
     public function kembali($id){
         $peminjaman = Peminjamans::findOrFail($id);

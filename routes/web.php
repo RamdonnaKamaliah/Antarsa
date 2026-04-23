@@ -70,11 +70,9 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->name('siswa.')->grou
     ->name('keranjang.index');
     Route::post('/keranjang/tambah/{id}', [SiswaKeranjangController::class, 'tambah'])->name('keranjang.tambah');
     Route::post('/keranjang/hapus/{id}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
-    Route::post('/keranjang/checkout' , [KeranjangController::class, 'checkout'])->name('keranjang.checkout');
+   
     Route::post('/keranjang/update/{id}', [KeranjangController::class, 'update'])
     ->name('keranjang.update');
-    Route::get('peminjaman-alat/{id}/download-qr', [PeminjamanBukuController::class, 'downloadQr'])
-         ->name('peminjaman.downloadQr');
     Route::post('/keranjang/checkout', [PeminjamanBukuController::class, 'store'])
     ->name('keranjang.checkout');
     Route::get('/peminjaman/{id}', [PeminjamanBukuController::class, 'show'])->name('peminjaman.show');

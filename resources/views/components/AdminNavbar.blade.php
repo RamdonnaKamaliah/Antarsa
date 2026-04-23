@@ -6,19 +6,21 @@
            ">
 
     <div class="flex items-center gap-4">
-        
+
         <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
             onclick="document.getElementById('mobileSidebar').classList.remove('hidden')">
             <i class="fa-solid fa-bars text-lg"></i>
         </button>
 
-       
+
         <div class="leading-tight">
             <h3 class="text-lg font-bold text-gray-800 uppercase tracking-wide">
                 @yield('title')
             </h3>
             <p class="text-xs text-gray-500 hidden sm:block">
-                <span class="text-primary font-bold">ARSA</span> - <span class="text-gray-800 font-bold">Aplikasi Rekapitulasi Sarana Alat</span>
+                <span class="text-primary font-bold">ANTARSA</span> - <span class="text-gray-800 font-bold">Aplikasi
+                    Antrian
+                    Pustaka</span>
             </p>
         </div>
     </div>

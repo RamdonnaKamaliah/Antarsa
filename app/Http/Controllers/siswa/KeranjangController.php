@@ -4,16 +4,47 @@ namespace App\Http\Controllers\siswa;
 
 use App\Http\Controllers\Controller;
 use App\Models\Buku;
+use App\Models\Peminjamans;
 use Illuminate\Http\Request;
 
 class KeranjangController extends Controller
 {
 
     public function index()
-    {
-        $keranjang = session('keranjang', []);
-        return view('peminjam.keranjang.index', compact('keranjang'));
+{
+    $keranjangSession = session('keranjang', []);
+    $userId = auth()->id();
+
+    // 1. Ambil detail buku dari DB berdasarkan ID yang ada di session
+    $bukuIds = array_keys($keranjangSession);
+    $dataBuku = Buku::whereIn('id', $bukuIds)->get()->keyBy('id');
+
+    // 2. Gabungkan data session dengan data dari database
+    $keranjang = [];
+    foreach ($keranjangSession as $id => $item) {
+        if (isset($dataBuku[$id])) {
+            $keranjang[$id] = [
+                'id' => $id,
+                'judul' => $dataBuku[$id]->judul,
+                'foto' => $dataBuku[$id]->foto_buku,
+                'penulis' => $dataBuku[$id]->penulis,
+                'stok' => $dataBuku[$id]->stok,
+                'jumlah' => $item['jumlah'] ?? 1,
+                'kategori' => $dataBuku[$id]->kategori->nama_kategori ?? 'Umum',
+            ];
+        }
     }
+
+    $adaTunggakan = Peminjamans::where('user_id', $userId)
+    ->where('status', 'disetujui')
+    // Pakai toDateString() supaya cuma bandingkan tanggal (Y-m-d) tanpa jam
+    ->whereDate('tgl_kembali_rencana', '<', now()->toDateString()) 
+    ->whereNull('tgl_kembali_sebenarnya')
+    ->exists();
+
+
+    return view('peminjam.keranjang.index', compact('keranjang', 'adaTunggakan'));
+}
 
     public function tambah($id){
         
@@ -37,16 +68,25 @@ class KeranjangController extends Controller
             ->with('success', 'Alat berhasil ditambahkan ke keranjang!');
     }
 
-    public function checkout(Request $request)
-{
-    $request->validate([
-        'alat_selected' => 'required|array'
-    ]);
+//     public function checkout(Request $request)
+// {
+//     $request->validate([
+//         'alat_selected' => 'required|array'
+//     ]);
 
-    $selected = $request->alat_selected;
+//     $selected = $request->alat_selected;
 
-    dd("Yang dicheckout:", $selected);
-}
+//      $adaTunggakan = Peminjamans::where('user_id', $userId)
+//         ->where('status', 'disetujui')
+//         ->whereDate('tgl_kembali_rencana', '<', now()->toDateString())
+//         ->whereNull('tgl_kembali_sebenarnya')
+//         ->exists();
+
+//     if ($adaTunggakan) {
+//         return redirect()->back()
+//             ->with('error', 'Kamu masih punya buku yang terlambat dikembalikan. Selesaikan dulu ya!');
+//     }
+// }
 
 public function update(Request $request, $id)
 {

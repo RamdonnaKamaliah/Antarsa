@@ -65,7 +65,7 @@ class KategoriAlatController extends Controller
         $kategori = Kategori::where('id', $id)->firstOrFail();
 
         $request->validate([
-            'nama_kategori' => 'required|string|max:100|unique:kategori_alats,nama_kategori',
+            'nama_kategori' => 'required|string|max:100|unique:kategori,nama_kategori',
         ], [
             'nama_kategori.required' => 'Nama kategori wajib diisi.',
             'nama_kategori.unique'   => 'Kategori "' . $request->nama_kategori . '" sudah ada.',

@@ -9,7 +9,7 @@
                     class="w-10 gap-0 bg-white rounded-md border border-gray-300">
                 <p
                     class="text-2xl font-semibold text-transparent bg-clip-text bg-linear-to-r from-primary via-blue-600 to-secondary">
-                    ARSA
+                    ANTARSA
                 </p>
             </div>
 

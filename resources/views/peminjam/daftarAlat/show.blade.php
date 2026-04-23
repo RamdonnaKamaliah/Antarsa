@@ -6,7 +6,7 @@
 
     <div class="pt-6 px-4 flex justify-center">
 
-        <div class="w-full bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8">
+        <div class="w-full bg-white bg-slate-800 rounded-2xl shadow-lg p-8">
 
             {{-- Tombol Back --}}
             <div class="mb-6">
@@ -17,7 +17,7 @@
             </div>
 
             {{-- Judul --}}
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+            <h2 class="text-2xl font-bold text-gray-800 text-white mb-6 text-center">
                 Detail Data Alat
             </h2>
 
@@ -41,21 +41,21 @@
 
                     <div>
                         <p class="text-gray-500 text-sm">Nama Alat</p>
-                        <p class="text-lg font-semibold text-gray-800 dark:text-white">
-                            {{ $alat->judul_buku}}
+                        <p class="text-lg font-semibold text-gray-800 text-white">
+                            {{ $alat->judul_buku }}
                         </p>
                     </div>
 
                     <div>
                         <p class="text-gray-500 text-sm">Kategori</p>
-                        <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                        <p class="text-lg font-semibold text-gray-800 text-white">
                             {{ $alat->kategori->nama_kategori ?? '-' }}
                         </p>
                     </div>
 
                     <div>
                         <p class="text-gray-500 text-sm">Stok</p>
-                        <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                        <p class="text-lg font-semibold text-gray-800 text-white">
                             {{ $alat->stok }}
                         </p>
                     </div>
@@ -67,7 +67,7 @@
                             + Tambah ke Keranjang
                         </button>
 
-                        
+
                     </form>
 
 

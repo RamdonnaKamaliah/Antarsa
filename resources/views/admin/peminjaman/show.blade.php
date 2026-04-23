@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="pt-6 px-4 flex justify-center">
-        <div class="w-full bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8">
+        <div class="w-full bg-white bg-slate-800 rounded-2xl shadow-lg p-8">
 
             <div class="mb-6">
                 <a href="{{ route('admin.peminjaman.index') }}"
@@ -15,15 +15,15 @@
             </div>
 
             {{-- Judul --}}
-            <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white mb-8">
+            <h2 class="text-2xl font-bold text-center text-gray-800 text-white mb-8">
                 Detail Peminjaman
             </h2>
 
             {{-- Info Status --}}
             <div class="flex justify-between items-center mb-6">
-                <p class="text-gray-600 dark:text-gray-300">
+                <p class="text-gray-600 text-gray-300">
                     ID Peminjaman:
-                    <span class="font-bold text-gray-800 dark:text-white">
+                    <span class="font-bold text-gray-800 text-white">
                         #{{ $peminjaman->id }}
                     </span>
                 </p>
@@ -39,16 +39,16 @@
 
             {{-- Tanggal --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-700">
-                    <p class="text-sm text-gray-500 dark:text-gray-300">Rencana Ambil</p>
-                    <p class="font-bold text-gray-800 dark:text-white">
+                <div class="p-4 rounded-xl bg-gray-50 bg-slate-700">
+                    <p class="text-sm text-gray-500 text-gray-300">Rencana Ambil</p>
+                    <p class="font-bold text-gray-800 text-white">
                         {{ $peminjaman->tanggal_pengambilan_rencana }}
                     </p>
                 </div>
 
-                <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-700">
-                    <p class="text-sm text-gray-500 dark:text-gray-300">Rencana Kembali</p>
-                    <p class="font-bold text-gray-800 dark:text-white">
+                <div class="p-4 rounded-xl bg-gray-50 bg-slate-700">
+                    <p class="text-sm text-gray-500 text-gray-300">Rencana Kembali</p>
+                    <p class="font-bold text-gray-800 text-white">
                         {{ $peminjaman->tanggal_pengembalian_rencana }}
                     </p>
                 </div>
@@ -56,23 +56,23 @@
 
             {{-- Alasan --}}
             <div class="mb-8">
-                <p class="text-sm text-gray-500 dark:text-gray-300 mb-2">
+                <p class="text-sm text-gray-500 text-gray-300 mb-2">
                     Alasan / Catatan
                 </p>
-                <div class="p-4 rounded-xl bg-gray-100 dark:bg-slate-700 text-gray-800 dark:text-white">
+                <div class="p-4 rounded-xl bg-gray-100 bg-slate-700 text-gray-800 text-white">
                     {{ $peminjaman->alasan_peminjaman }}
                 </div>
             </div>
 
             {{-- List Alat --}}
-            <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">
+            <h3 class="text-lg font-bold text-gray-800 text-white mb-4">
                 Daftar Alat Dipinjam
             </h3>
 
             <div class="space-y-4">
                 @foreach ($peminjaman->detail as $item)
-                    <div class="flex justify-between items-center p-4 rounded-xl bg-gray-50 dark:bg-slate-700">
-                        <p class="font-semibold text-gray-800 dark:text-white">
+                    <div class="flex justify-between items-center p-4 rounded-xl bg-gray-50 bg-slate-700">
+                        <p class="font-semibold text-gray-800 text-white">
                             {{ $item->alat->nama_alat }}
                         </p>
                         <span class="px-3 py-1 rounded-lg bg-blue-100 text-blue-700 font-bold">

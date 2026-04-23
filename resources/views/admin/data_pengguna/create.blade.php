@@ -6,7 +6,7 @@
 
     <div class="pt-1">
         <div class="flex justify-center items-center min-h-[80vh] py-6 px-4">
-            <div class="w-full max-w-5xl min-h-100 bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg">
+            <div class="w-full max-w-5xl min-h-100 bg-white bg-slate-800 p-6 rounded-lg shadow-lg">
                 <div class="mb-4">
                     <a href="{{ route('admin.akun-pengguna.index') }}" class="text-blue-600 hover:text-blue-800">
                         <i class="fas fa-arrow-left text-xl"></i>
@@ -15,7 +15,7 @@
 
 
                 <!-- Judul -->
-                <h2 class="text-center text-2xl font-bold text-gray-800 mb-6 dark:text-white">Create Data Alat</h2>
+                <h2 class="text-center text-2xl font-bold text-gray-800 mb-6 text-white">Create Data Alat</h2>
 
                 <!-- Form -->
                 <form action="{{ route('admin.akun-pengguna.store') }}" method="POST" enctype="multipart/form-data">
@@ -23,7 +23,7 @@
 
                     <!-- Input Nama  -->
                     <div class="pt-4 mb-4">
-                        <label for="name" class="block text-gray-700 font-semibold mb-2 dark:text-gray-300">
+                        <label for="name" class="block text-gray-700 font-semibold mb-2 text-gray-300">
                             Nama<span class="text-red-500">*</span>
                         </label>
 
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="pt-4 mb-4">
-                        <label for="name" class="block text-gray-700 font-semibold mb-2 dark:text-gray-300">
+                        <label for="name" class="block text-gray-700 font-semibold mb-2 text-gray-300">
                             username<span class="text-red-500">*</span>
                         </label>
 
@@ -62,7 +62,7 @@
 
                     {{-- input email --}}
                     <div class="mb-4">
-                        <label for="email" class="block text-gray-700 font-semibold mb-2 dark:text-gray-300">
+                        <label for="email" class="block text-gray-700 font-semibold mb-2 text-gray-300">
                             Email<span class="text-red-500">*</span>
                         </label>
 
@@ -81,7 +81,7 @@
 
                     {{-- input role --}}
                     {{-- <div class="mb-4">
-                        <label for="role" class="block text-gray-700 font-semibold mb-2 dark:text-gray-300">
+                        <label for="role" class="block text-gray-700 font-semibold mb-2 text-gray-300">
                             Role<span class="text-red-500">*</span>
                         </label>
 

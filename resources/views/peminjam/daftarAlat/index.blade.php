@@ -1,27 +1,26 @@
 @extends('layouts.peminjam')
 
-@section('title', 'daftar alat')
+@section('title', 'daftar buku')
 
 @section('content')
-    <div class="p-4 md:p-6 overflow-x-hidden mt-4 min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div class="p-4 md:p-6 overflow-x-hidden mt-4 min-h-screen bg-gray-50">
         <div class="max-w-7xl mx-auto">
             <!-- Header Section -->
-            <div
-                class="bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 p-6 rounded-lg shadow-md dark:shadow-lg mb-6">
+            <div class="bg-white text-gray-900 p-6 rounded-lg shadow-md shadow-lg mb-6">
                 <h1
                     class="text-2xl md:text-3xl font-bold text-center bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Daftar Alat Tersedia
+                    Daftar Buku
                 </h1>
-                <p class="text-center text-gray-600 dark:text-gray-400 mt-2">Jelajahi koleksi alat yang tersedia untuk
+                <p class="text-center text-gray-600 mt-2">Jelajahi koleksi buku yang tersedia untuk
                     dipinjam</p>
             </div>
 
             <!-- Search and Filter Section -->
-            <div class="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-md dark:shadow-lg mb-6">
+            <div class="bg-white p-4 rounded-lg shadow-md shadow-lg mb-6">
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-1">
                         <input type="text" id="searchInput" placeholder="Cari alat..."
-                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 border-gray-600 bg-white bg-slate-700 text-gray-900 text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
                     </div>
                     <div class="flex gap-2">
                         <button
@@ -29,7 +28,7 @@
                             <i class="fas fa-filter mr-2"></i>Semua
                         </button>
                         <button
-                            class="filter-btn px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-gray-800 dark:text-gray-100 rounded-lg font-semibold transition-all duration-300">
+                            class="filter-btn px-6 py-3 bg-gray-200 hover:bg-slate-600 text-gray-100 rounded-lg font-semibold transition-all duration-300">
                             <i class="fas fa-check-circle mr-2"></i>Tersedia
                         </button>
                     </div>
@@ -40,10 +39,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @foreach ($alat as $row)
                     <div
-                        class="equipment-card bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                        class="equipment-card bg-white bg-slate-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
                         <!-- Image Section -->
                         <div
-                            class="relative h-48 bg-linear-to-br from-blue-100 to-purple-100 dark:from-slate-700 dark:to-slate-600 overflow-hidden">
+                            class="relative h-48 bg-linear-to-br from-blue-100 to-purple-100 from-slate-700 to-slate-600 overflow-hidden">
                             @if ($row->foto_buku)
                                 <img src="{{ Storage::url($row->foto_buku) }}" alt="{{ $row->nama_alat }}"
                                     class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
@@ -70,19 +69,19 @@
                         <!-- Content Section -->
                         <div class="p-4">
                             <!-- Equipment Name -->
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 min-h-14">
-                                {{ $row->nama_alat }}
+                            <h3 class="text-lg font-bold text-gray-900 text-white mb-2 line-clamp-2 min-h-14">
+                                {{ $row->judul_buku }}
                             </h3>
 
                             <!-- Stock Info -->
                             <div
-                                class="flex items-center justify-between mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+                                class="flex items-center justify-between mb-4 pb-4 border-b border-gray-200 border-gray-700">
                                 <div class="flex items-center space-x-2">
-                                    <i class="fas fa-box text-blue-600 dark:text-blue-400"></i>
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Stok:</span>
+                                    <i class="fas fa-box text-blue-600 text-blue-400"></i>
+                                    <span class="text-sm text-gray-600 text-gray-400">Stok:</span>
                                 </div>
                                 <span
-                                    class="text-xl font-bold {{ $row->stok > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
+                                    class="text-xl font-bold {{ $row->stok > 0 ? 'text-green-600 text-green-400' : 'text-red-600 text-red-400' }}">
                                     {{ $row->stok }}
                                 </span>
                             </div>
@@ -95,13 +94,13 @@
                                 </a>
 
                                 @if ($row->stok > 0)
-                                    <a href="{{ route('siswa.data-alat.store', ['alat_id' => $row->id]) }}"
+                                    <a href="{{ route('siswa.keranjang.checkout', ['alat_id' => $row->id]) }}"
                                         class="w-full text-center px-4 py-2.5 bg-linear-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                                        <i class="fas fa-hand-holding mr-2"></i>Pinjam Buku
+                                        <i class="fa-solid fa-cart-shopping"></i> Tambah
                                     </a>
                                 @else
                                     <button disabled
-                                        class="w-full text-center px-4 py-2.5 bg-gray-400 dark:bg-gray-600 text-white rounded-lg font-semibold cursor-not-allowed opacity-60">
+                                        class="w-full text-center px-4 py-2.5 bg-gray-400 bg-gray-600 text-white rounded-lg font-semibold cursor-not-allowed opacity-60">
                                         <i class="fas fa-ban mr-2"></i>Stok Habis
                                     </button>
                                 @endif
@@ -113,12 +112,12 @@
 
             <!-- Empty State -->
             @if ($alat->isEmpty())
-                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-12 text-center">
+                <div class="bg-white bg-slate-800 rounded-xl shadow-lg p-12 text-center">
                     <div class="mb-4">
-                        <i class="fas fa-inbox text-6xl text-gray-400 dark:text-gray-600"></i>
+                        <i class="fas fa-inbox text-6xl text-gray-400 text-gray-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Belum Ada Alat Tersedia</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Saat ini belum ada alat yang tersedia untuk dipinjam.</p>
+                    <h3 class="text-xl font-bold text-gray-900 text-white mb-2">Belum Ada Alat Tersedia</h3>
+                    <p class="text-gray-600 text-gray-400">Saat ini belum ada alat yang tersedia untuk dipinjam.</p>
                 </div>
             @endif
 
@@ -168,14 +167,14 @@
                     // Update active button
                     filterBtns.forEach(b => {
                         b.classList.remove('bg-blue-600', 'hover:bg-blue-700',
-                        'text-white');
+                            'text-white');
                         b.classList.add('bg-gray-200', 'hover:bg-gray-300',
-                            'dark:bg-slate-700', 'dark:hover:bg-slate-600',
-                            'text-gray-800', 'dark:text-gray-100');
+                            'bg-slate-700', 'hover:bg-slate-600',
+                            'text-gray-800', 'text-gray-100');
                     });
 
-                    this.classList.remove('bg-gray-200', 'hover:bg-gray-300', 'dark:bg-slate-700',
-                        'dark:hover:bg-slate-600', 'text-gray-800', 'dark:text-gray-100');
+                    this.classList.remove('bg-gray-200', 'hover:bg-gray-300', 'bg-slate-700',
+                        'hover:bg-slate-600', 'text-gray-800', 'text-gray-100');
                     this.classList.add('bg-blue-600', 'hover:bg-blue-700', 'text-white');
 
                     // Filter cards

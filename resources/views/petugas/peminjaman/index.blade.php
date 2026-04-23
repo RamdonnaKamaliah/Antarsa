@@ -55,7 +55,7 @@
                 @else
                     <div>
                         <a href="{{ route('petugas.peminjaman.show', $p->id) }}"
-                            class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 dark:bg-green-900/30 dark:hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
+                            class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 bg-green-900/30 hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
                             <i class="fas fa-eye"></i> <span class="hidden sm:inline">Show</span>
                         </a>
                     </div>

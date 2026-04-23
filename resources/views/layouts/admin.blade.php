@@ -39,7 +39,7 @@
 
 </head>
 
-<body class="bg-gray-50 dark:bg-slate-900 overflow-x-hidden h-screen flex">
+<body class="bg-gray-50 overflow-x-hidden h-screen flex">
 
     <aside class="fixed inset-y-0 left-0 z-50 shadow-xl transition-all duration-300 xl:translate-x-0 -translate-x-full"
         id="sidebar">
@@ -69,7 +69,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     @stack('scripts')
-    
+
     <script>
         @if (session('success'))
             Swal.fire({
@@ -122,7 +122,7 @@
     </script>
 
 
-
+    @yield('scripts')
 </body>
 
 </html>

@@ -3,12 +3,11 @@
 @section('title', 'daftar buku')
 
 @section('content')
-    <div class="p-4 md:p-6 overflow-x-hidden mt-4 min-h-screen bg-gray-50">
+    <div class="p-4 md:p-6 overflow-x-hidden mt-4 min-h-screen bg-gray-50 rounded-2xl">
         <div class="max-w-7xl mx-auto">
             <!-- Header Section -->
-            <div class="bg-white text-gray-900 p-6 rounded-lg shadow-md shadow-lg mb-6">
-                <h1
-                    class="text-2xl md:text-3xl font-bold text-center bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <div class="bg-white text-gray-900 p-6 rounded-lg shadow-md mb-6">
+                <h1 class="text-2xl md:text-3xl font-bold text-center bg-primary bg-clip-text text-transparent">
                     Daftar Buku
                 </h1>
                 <p class="text-center text-gray-600 mt-2">Jelajahi koleksi buku yang tersedia untuk
@@ -16,11 +15,11 @@
             </div>
 
             <!-- Search and Filter Section -->
-            <div class="bg-white p-4 rounded-lg shadow-md shadow-lg mb-6">
+            <div class="bg-white p-4 rounded-lg shadow-md mb-6">
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-1">
-                        <input type="text" id="searchInput" placeholder="Cari alat..."
-                            class="w-full px-4 py-3 rounded-lg border border-gray-300 border-gray-600 bg-white bg-slate-700 text-gray-900 text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                        <input type="text" id="searchInput" placeholder="Cari buku..."
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white  text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
                     </div>
                     <div class="flex gap-2">
                         <button
@@ -28,7 +27,7 @@
                             <i class="fas fa-filter mr-2"></i>Semua
                         </button>
                         <button
-                            class="filter-btn px-6 py-3 bg-gray-200 hover:bg-slate-600 text-gray-100 rounded-lg font-semibold transition-all duration-300">
+                            class="filter-btn px-6 py-3 bg-gray-500 hover:bg-slate-600 text-gray-100 rounded-lg font-semibold transition-all duration-300">
                             <i class="fas fa-check-circle mr-2"></i>Tersedia
                         </button>
                     </div>
@@ -69,7 +68,7 @@
                         <!-- Content Section -->
                         <div class="p-4">
                             <!-- Equipment Name -->
-                            <h3 class="text-lg font-bold text-gray-900 text-white mb-2 line-clamp-2 min-h-14">
+                            <h3 class="text-lg font-bold text-gray-900  mb-2 line-clamp-2 min-h-14">
                                 {{ $row->judul_buku }}
                             </h3>
 
@@ -77,8 +76,8 @@
                             <div
                                 class="flex items-center justify-between mb-4 pb-4 border-b border-gray-200 border-gray-700">
                                 <div class="flex items-center space-x-2">
-                                    <i class="fas fa-box text-blue-600 text-blue-400"></i>
-                                    <span class="text-sm text-gray-600 text-gray-400">Stok:</span>
+                                    <i class="fas fa-box text-blue-600 "></i>
+                                    <span class="text-sm text-gray-600">Stok:</span>
                                 </div>
                                 <span
                                     class="text-xl font-bold {{ $row->stok > 0 ? 'text-green-600 text-green-400' : 'text-red-600 text-red-400' }}">

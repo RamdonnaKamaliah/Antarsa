@@ -32,9 +32,8 @@ class AdminPeminjamanController extends Controller
 
    public function approve($id) {
     $Peminjaman = Peminjamans::findOrFail($id);
-    $userIdSiswa = $Peminjaman->user_id; // Pastikan pakai ID Siswa, bukan ID Admin!
-
-    // Cek tunggakan siswa tersebut
+    $userIdSiswa = $Peminjaman->user_id; 
+   
     $cekTunggakan = Peminjamans::where('user_id', $userIdSiswa)
         ->where('status', 'disetujui')
         ->whereDate('tgl_kembali_rencana', '<', now()->toDateString()) 

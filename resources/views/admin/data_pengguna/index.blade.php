@@ -5,54 +5,54 @@
 @section('content')
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 px-1 mb-2">
-        <div class="bg-white bg-slate-800 p-4 rounded-2xl border border-slate-200/60 border-slate-700">
+        <div class="bg-white  p-4 rounded-2xl border border-slate-200/60 ">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Pengguna</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-users text-sm text-blue-600 text-blue-400"></i>
+                <div class="w-8 h-8 rounded-lg bg-blue-100  flex items-center justify-center">
+                    <i class="fas fa-users text-sm text-blue-600 "></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 text-white">{{ $stats['total_pengguna'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $stats['total_pengguna'] }}</h3>
             <p class="text-[11px] text-slate-400">total</p>
         </div>
 
-        <div class="bg-white bg-slate-800 p-4 rounded-2xl border border-slate-200/60 border-slate-700">
+        <div class="bg-white  p-4 rounded-2xl border border-slate-200/60 ">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Pengguna diblokir</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-lock text-sm text-blue-600 text-blue-400"></i>
+                <div class="w-8 h-8 rounded-lg bg-blue-100  flex items-center justify-center">
+                    <i class="fas fa-lock text-sm text-blue-600 "></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 text-white">123</h3>
+            <h3 class="text-2xl font-bold text-slate-800">123</h3>
             <p class="text-[11px] text-slate-400">total</p>
         </div>
 
-        <div class="bg-white bg-slate-800 p-4 rounded-2xl border border-slate-200/60 border-slate-700">
+        <div class="bg-white  p-4 rounded-2xl border border-slate-200/60 ">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Role</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-circle text-sm text-blue-600 text-blue-400"></i>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <i class="fas fa-circle text-sm text-blue-600 "></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 text-white">{{ $stats['total_role'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $stats['total_role'] }}</h3>
             <p class="text-[11px] text-slate-400">total</p>
         </div>
 
-        <div class="bg-white bg-slate-800 p-4 rounded-2xl border border-slate-200/60 border-slate-700">
+        <div class="bg-white  p-4 rounded-2xl border border-slate-200/60 ">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Email</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-message text-sm text-blue-600 text-blue-400"></i>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <i class="fas fa-message text-sm text-blue-600 "></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 text-white">{{ $stats['total_email'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $stats['total_email'] }}</h3>
             <p class="text-[11px] text-slate-400">Total</p>
         </div>
     </div>
 
     <div class="p-4 md:p-2 overflow-x-hidden mt-4 min-h-screen">
-        <div class="bg-white bg-slate-800 text-gray-900 text-gray-100 p-4 rounded-lg shadow-md shadow-lg">
-            <h2 class="text-center text-xl font-bold mb-4 text-gray-800 text-white">Data Alat Management</h2>
+        <div class="bg-white  text-gray-900  p-4 rounded-lg shadow-md">
+            <h2 class="text-center text-xl font-bold mb-4 text-white">Data Alat Management</h2>
             <div class="flex flex-wrap justify-end gap-2">
                 <a href="{{ route('admin.akun-pengguna.create') }}">
                     <button
@@ -66,7 +66,7 @@
 
             <div class="overflow-x-auto mt-4">
                 <table id="akunTable" class="w-full text-xs md:text-sm border-gray-600">
-                    <thead class="bg-gray-200 text-gray-800 bg-slate-700 text-gray-100">
+                    <thead class="bg-gray-200 text-gray-800">
                         <tr>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Nama</th>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Username</th>
@@ -92,7 +92,7 @@
                                     <div class="flex justify-center space-x-1 md:space-x-2">
 
                                         <a href="{{ route('admin.akun-pengguna.show', $row->id) }}"
-                                            class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 bg-green-900/30 hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
+                                            class="text-green-600 hover:text-white bg-green-50 hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
                                             <i class="fas fa-eye"></i> <span class="hidden sm:inline">Show</span>
                                         </a>
 
@@ -100,8 +100,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="button"
-                                                class="btn-delete text-red-600 hover:text-white bg-red-50 hover:bg-red-500 
-    bg-red-900/30 hover:bg-red-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer transform hover:scale-110"
+                                                class="btn-delete text-red-600 hover:text-white bg-red-50 hover:bg-red-500 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer transform hover:scale-110"
                                                 data-title="{{ $row->nama_alat }}">
                                                 <i class="fas fa-trash-alt"></i> Delete
                                             </button>
@@ -115,7 +114,7 @@
                                                 @method('PATCH')
 
                                                 <button
-                                                    class="text-green-600 cursor-pointer hover:text-white bg-green-50 hover:bg-green-500 bg-green-900/30 hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
+                                                    class="text-green-600 cursor-pointer hover:text-white bg-green-50 hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
                                                     Unblock
                                                     <i class="fa-solid fa-lock-open"></i>
                                                 </button>

@@ -6,59 +6,59 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 px-1 mb-2">
 
-        <div class="bg-white bg-slate-800 p-4 rounded-2xl border border-slate-200/60 border-slate-700">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/60">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total peminjaman</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 text-blue-400"></i>
+                <div class="w-8 h-8 rounded-lg bg-blue-100  flex items-center justify-center">
+                    <i class="fas fa-file-alt text-sm text-blue-600"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 text-white">{{ $stats['total_peminjaman'] }}</h3>
+            <h3 class="text-2xl font-bold text-white">{{ $stats['total_peminjaman'] }}</h3>
             <p class="text-[11px] text-slate-400">Count</p>
         </div>
 
-        <div class="bg-white bg-slate-800 p-4 rounded-2xl border border-slate-200/60 border-slate-700">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/60">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Alat Kembali</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 text-blue-400"></i>
+                <div class="w-8 h-8 rounded-lg bg-blue-100  flex items-center justify-center">
+                    <i class="fas fa-file-alt text-sm text-blue-600"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 text-white">{{ $stats['total_barangKembali'] }}</h3>
+            <h3 class="text-2xl font-bold text-white">{{ $stats['total_barangKembali'] }}</h3>
             <p class="text-[11px] text-slate-400">Count</p>
         </div>
 
-        <div class="bg-white bg-slate-800 p-4 rounded-2xl border border-slate-200/60 border-slate-700">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/60 ">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total Peminjaman Pending</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 text-blue-400"></i>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <i class="fas fa-file-alt text-sm text-blue-600"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 text-white">{{ $stats['total_barangPending'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $stats['total_barangPending'] }}</h3>
             <p class="text-[11px] text-slate-400">Count</p>
         </div>
 
-        <div class="bg-white bg-slate-800 p-4 rounded-2xl border border-slate-200/60 border-slate-700">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/60 ">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs text-slate-500">Total peminjaman Ditolak</p>
-                <div class="w-8 h-8 rounded-lg bg-blue-100 bg-blue-900/40 flex items-center justify-center">
-                    <i class="fas fa-file-alt text-sm text-blue-600 text-blue-400"></i>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <i class="fas fa-file-alt text-sm text-blue-600"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 text-white">{{ $stats['total_barangDitolak'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $stats['total_barangDitolak'] }}</h3>
             <p class="text-[11px] text-slate-400">Count</p>
         </div>
     </div>
 
     <div class="p-4 md:p-2 overflow-x-hidden mt-4 min-h-screen">
-        <div class="bg-white bg-slate-800 text-gray-900 text-gray-100 p-4 rounded-lg shadow-md shadow-lg">
-            <h2 class="text-center text-xl font-bold mb-4 text-gray-800 text-white">Daftar Peminjaman</h2>
+        <div class="bg-white text-gray-900 p-4 rounded-lg shadow-md">
+            <h2 class="text-center text-xl font-bold mb-4 text-gray-800">Daftar Peminjaman</h2>
 
 
             <div class="overflow-x-auto mt-4">
                 <table id="peminjamanTable" class="w-full border border-gray-300 text-xs md:text-sm border-gray-600">
-                    <thead class="bg-gray-200 text-gray-800 bg-slate-700 text-gray-100">
+                    <thead class="bg-gray-200  bg-slate-700 ">
                         <tr>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Nama Peminjam</th>
                             <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Tanggal</th>
@@ -106,7 +106,7 @@
                                         @endif
 
                                         <a href="{{ route('admin.peminjaman.show', $row->id) }}"
-                                            class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 bg-green-900/30 hover:bg-green-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
+                                            class="text-green-600 hover:text-white bg-green-50 hover:bg-green-500 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110">
                                             <i class="fas fa-eye"></i> <span class="hidden sm:inline">Show</span>
                                         </a>
 
@@ -114,8 +114,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="button"
-                                                class="btn-delete text-red-600 hover:text-white bg-red-50 hover:bg-red-500 
-    bg-red-900/30 hover:bg-red-600 p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer transform hover:scale-110"
+                                                class="btn-delete text-red-600 hover:text-white bg-red-50 hover:bg-red-500  p-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer transform hover:scale-110"
                                                 data-title="{{ $row->nama_alat }}">
                                                 <i class="fas fa-trash-alt"></i> Delete
                                             </button>
@@ -133,16 +132,16 @@
 
     {{-- POP UP --}}
     <div id="actionModal" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black/50">
-        <div class="bg-white bg-slate-800 rounded-2xl shadow-xl w-full max-w-md p-6 transform transition-all">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 transform transition-all">
             <div class="text-center">
                 <div id="modalIconContainer" class="mx-auto flex items-center justify-center h-16 w-16 rounded-full mb-4">
                     <i id="modalIcon" class="fas text-2xl text-white"></i>
                 </div>
-                <h3 id="modalTitle" class="text-xl font-bold text-gray-800 text-white mb-2"></h3>
-                <p class="text-gray-500 text-gray-400 mb-4">
+                <h3 id="modalTitle" class="text-xl font-bold text-white mb-2"></h3>
+                <p class="text-gray-500 mb-4">
                     <span id="modalText"></span> <br>
-                    <span id="targetBuku" class="font-bold text-gray-700 text-gray-200"></span>
-                    oleh <span id="targetUser" class="font-bold text-gray-700 text-gray-200"></span>
+                    <span id="targetBuku" class="font-bold text-gray-700"></span>
+                    oleh <span id="targetUser" class="font-bold text-gray-700"></span>
                 </p>
             </div>
 

@@ -5,33 +5,37 @@
 @section('content')
 
     <div class="container mx-auto px-6 py-8">
-        <div class="flex items-center justify-between mb-8">
-            <div>
-                <h2 class="text-3xl font-bold text-slate-800 text-white">Log Aktivitas</h2>
-                <p class="text-slate-500 mt-1 text-sm">Rekam jejak seluruh kegiatan sistem ARSA.</p>
-            </div>
-            <div class="bg-white bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-100 border-slate-700">
-                <span class="text-slate-500 text-xs uppercase font-semibold tracking-wider">Total Aktivitas:</span>
-                <span class="text-primary font-bold ml-2">{{ $logs->total() }}</span>
+        <div class="relative overflow-hidden bg-slate-100 p-8 rounded-3xl shadow-lg mb-8">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-black/10 rounded-full blur-2xl"></div>
+
+            <div class="relative flex items-center justify-between">
+                <div>
+                    <h2 class="text-3xl font-bold text-primary">Log Aktivitas</h2>
+                    <p class="text-gray-600 mt-1 text-sm font-medium opacity-90">Rekam jejak seluruh kegiatan sistem ARSA.</p>
+                </div>
+                <div class="bg-white/20 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/30 shadow-xl">
+                    <span class="text-gray-700 text-xs uppercase font-bold tracking-wider">Total Aktivitas</span>
+                    <div class="text-gray-500 text-2xl font-black mt-1">{{ $logs->total() }}</div>
+                </div>
             </div>
         </div>
-
-        <div class="bg-white bg-slate-800 rounded-2xl shadow-sm border border-slate-100 border-slate-700 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100  overflow-hidden">
             <table class="w-full text-left border-collapse">
-                <thead class="bg-slate-50/50 bg-slate-900/50 border-b border-slate-100 border-slate-700">
+                <thead class="bg-primary border-b border-slate-100 ">
                     <tr>
-                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-500">Waktu</th>
-                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-500">User</th>
-                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-500">Aksi</th>
-                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-500">Entitas</th>
-                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-500">Keterangan</th>
+                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-100">Waktu</th>
+                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-100">User</th>
+                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-100">Aksi</th>
+                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-100">Entitas</th>
+                        <th class="px-6 py-4 text-xs uppercase font-bold text-slate-100">Keterangan</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 divide-slate-700">
+                <tbody class="divide-y divide-slate-100 ">
                     @foreach ($logs as $log)
-                        <tr class="hover:bg-slate-50/50 hover:bg-slate-900/30 transition-colors">
+                        <tr class="hover:bg-slate-50/50 transition-colors">
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-slate-700 text-slate-200">
+                                <div class="text-sm font-medium text-slate-700">
                                     {{ $log->created_at->translatedFormat('d M Y') }}
                                 </div>
                                 <div class="text-xs text-slate-400">
@@ -41,10 +45,10 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
                                     <div
-                                        class="w-8 h-8 rounded-full bg-slate-100 bg-slate-700 flex items-center justify-center text-primary font-bold text-xs">
+                                        class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-primary font-bold text-xs">
                                         {{ substr($log->user->name ?? '?', 0, 1) }}
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-700 text-slate-200">
+                                    <span class="text-sm font-semibold text-slate-700">
                                         {{ $log->user->name ?? 'System' }}
                                     </span>
                                 </div>
@@ -68,12 +72,12 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4">
-                                <span class="text-sm font-medium text-slate-600 text-slate-400">
+                                <span class="text-sm font-medium text-slate-600">
                                     {{ $log->entitas }}
                                 </span>
                             </td>
                             <td class="px-6 py-4">
-                                <p class="text-sm text-slate-600 text-slate-400 truncate max-w-xs">
+                                <p class="text-sm text-slate-600 truncate max-w-xs">
                                     {{ $log->keterangan }}
                                 </p>
                             </td>
@@ -82,7 +86,7 @@
                 </tbody>
             </table>
 
-            <div class="px-6 py-4 bg-slate-50/50 bg-slate-900/50">
+            <div class="px-6 py-4 bg-slate-50/50">
                 {{ $logs->links() }}
             </div>
         </div>

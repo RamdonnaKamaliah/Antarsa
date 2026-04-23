@@ -5,26 +5,37 @@
 @section('content')
     <div class="max-w-6xl mx-auto py-10 px-4 min-h-screen">
         {{-- Header --}}
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-            <div>
-                <div class="flex items-center gap-3 mb-2">
-                    <div class="w-2 h-8 bg-green-500 rounded-full"></div>
-                    <h1 class="text-3xl font-black text-slate-800 uppercase tracking-tighter">Keranjang
-                        Pinjam</h1>
+        <div class="relative overflow-hidden bg-white border border-slate-100 p-8 rounded-3xl shadow-sm mb-10">
+            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-green-50 rounded-full blur-3xl opacity-60"></div>
+            <div class="absolute bottom-0 left-0 -ml-10 -mb-10 w-40 h-40 bg-blue-50 rounded-full blur-2xl opacity-50"></div>
+
+            <div class="relative flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-2 h-10 bg-green-500 rounded-full shadow-[0_0_15px_rgba(34,197,94,0.4)]"></div>
+                        <div>
+                            <h1 class="text-3xl font-black text-slate-800 uppercase tracking-tighter leading-none">
+                                Keranjang Pinjam
+                            </h1>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-sm ml-5">
+                        Kelola koleksi buku yang ingin kamu pelajari di
+                        <span class="font-bold text-green-600">ANTARSA</span>.
+                    </p>
                 </div>
-                <p class="text-slate-500 text-sm">Kelola koleksi buku yang ingin kamu pelajari di <span
-                        class="font-bold text-green-600">ANTARSA</span>.</p>
+
+                <a href="{{ route('siswa.data-alat.index') }}"
+                    class="group bg-green-50 text-green-700 px-6 py-3 rounded-2xl text-sm font-bold hover:bg-green-600 hover:text-white transition-all duration-300 flex items-center gap-2 shadow-sm">
+                    <i class="fas fa-plus-circle group-hover:rotate-90 transition-transform duration-300"></i>
+                    Tambah Buku Lagi
+                </a>
             </div>
-            <a href="{{ route('siswa.data-alat.index') }}"
-                class="text-sm font-bold text-green-600 hover:text-green-700 transition-colors flex items-center gap-2">
-                <i class="fas fa-plus-circle"></i> Tambah Buku Lagi
-            </a>
         </div>
 
         @if (count($keranjang) == 0)
             {{-- State Kosong --}}
-            <div
-                class="bg-white rounded-3xl p-20 text-center border-2 border-dashed border-slate-200 border-slate-700">
+            <div class="bg-white rounded-3xl p-20 text-center border-2 border-dashed border-slate-200 border-slate-700">
                 <div class="w-24 h-24 bg-slate-50 mx-auto rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-shopping-basket text-slate-300 text-4xl"></i>
                 </div>
@@ -87,8 +98,7 @@
                             {{-- Kontrol & Hapus --}}
                             <div
                                 class="flex flex-col items-center sm:items-end gap-5 border-t sm:border-t-0 sm:border-l border-slate-50  pt-5 sm:pt-0 sm:pl-8">
-                                <div
-                                    class="flex items-center bg-slate-100 rounded-2xl p-1.5 border border-slate-200 ">
+                                <div class="flex items-center bg-slate-100 rounded-2xl p-1.5 border border-slate-200 ">
                                     <form action="{{ route('siswa.keranjang.update', $id) }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="jumlah" value="{{ $item['jumlah'] - 1 }}">
@@ -146,10 +156,8 @@
                         </div>
 
                         @if ($adaTunggakan)
-                            <div
-                                class="p-5 bg-red-50 rounded-3xl mb-8 border border-red-100 ">
-                                <div
-                                    class="flex items-center gap-2 text-red-600 font-black text-xs uppercase mb-2">
+                            <div class="p-5 bg-red-50 rounded-3xl mb-8 border border-red-100 ">
+                                <div class="flex items-center gap-2 text-red-600 font-black text-xs uppercase mb-2">
                                     <i class="fas fa-shield-alt"></i> Akses Terkunci
                                 </div>
                                 <p class="text-[11px] text-red-500 leading-relaxed font-medium">Kamu memiliki tanggungan
@@ -171,8 +179,7 @@
     {{-- MODAL CHECKOUT --}}
     <div id="checkoutModal" class="hidden fixed inset-0 z-[999] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-md"></div>
-        <div
-            class="relative bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+        <div class="relative bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
             <div class="bg-green-600 p-8 text-white">
                 <h3 class="text-2xl font-black uppercase tracking-tight">Atur Jadwal</h3>
                 <p class="text-green-100 text-sm mt-1">Kapan kamu akan mengambil buku ini?</p>
@@ -196,7 +203,8 @@
                         <input type="date" name="tanggal_kembali_rencana" id="inputTglKembali"
                             class="w-full h-14 px-4 rounded-2xl border-slate-200 bg-slate-50 focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all font-bold"
                             required>
-                        <p id="errorMsg" class="text-red-500 text-[10px] mt-3 hidden font-black bg-red-50 p-3 rounded-xl">
+                        <p id="errorMsg"
+                            class="text-red-500 text-[10px] mt-3 hidden font-black bg-red-50 p-3 rounded-xl">
                             <i class="fas fa-exclamation-triangle mr-1 text-xs"></i> DURASI PINJAM MAKSIMAL 7 HARI!
                         </p>
                     </div>

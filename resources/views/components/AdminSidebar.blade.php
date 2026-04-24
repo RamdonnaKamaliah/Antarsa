@@ -58,14 +58,6 @@
             <span>Transaksi</span>
         </a>
 
-        {{-- pengembalian --}}
-        {{-- <a href="{{ route('admin.pengembalian.index') }}"
-            class="flex items-center gap-3 px-4 py-2 rounded-xl transition
-            {{ request()->routeIs('admin.pengembalian*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100' }}">
-            <i class="fa-solid fa-undo w-5 text-center"></i>
-            <span>Pengembalian</span>
-        </a> --}}
-
         {{-- Aktivitas --}}
         <a href="{{ route('admin.aktivitas.index') }}"
             class="flex items-center gap-3 px-4 py-2 rounded-xl transition
@@ -89,6 +81,6 @@
 
     {{-- Footer --}}
     <div class="px-4 py-3 text-xs text-gray-500 border-t">
-        © {{ date('Y') }} <span class="font-semibold">ARSA System</span>
+        © {{ date('Y') }} <span class="font-semibold">ANTARSA System</span>
     </div>
 </aside>

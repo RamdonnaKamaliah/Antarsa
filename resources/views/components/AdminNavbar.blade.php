@@ -80,21 +80,33 @@
                 Dashboard
             </a>
 
-            <a href="#" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
+            <a href="{{ route('admin.akun-pengguna.index') }}"
+                class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
                 Data User
             </a>
 
-            <a href="#" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
-                Data Alat
+            <a href="{{ route('admin.data-buku.index') }}"
+                class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
+                Daftar Buku
             </a>
 
-            <a href="#" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
-                Kategori Alat
+            <a href="{{ route('admin.kategori-alat.index') }}"
+                class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
+                Kategori
             </a>
 
-            <a href="#" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
-                Laporan
-            </a>
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="flex w-full items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium cursor-pointer
+                           text-red-500 hover:bg-red-50 hover:bg-red-500/10 transition">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </button>
+                </form>
+            </li>
+
 
         </nav>
     </div>

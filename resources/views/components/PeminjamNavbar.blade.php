@@ -76,25 +76,37 @@
 
         <nav class="space-y-1">
 
-            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
+            <a href="{{ route('siswa.dashboard') }}" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
                 Dashboard
             </a>
 
-            <a href="#" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
-                Data User
+            <a href="{{ route('siswa.data-alat.index') }}"
+                class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
+                Daftar Buku
             </a>
 
-            <a href="#" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
-                Data Alat
+            <a href="{{ route('siswa.keranjang.index') }}"
+                class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
+                Keranjang
             </a>
 
-            <a href="#" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
-                Kategori Alat
+            <a href="{{ route('siswa.peminjamAlat') }}"
+                class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
+                Peminjaman
             </a>
 
-            <a href="#" class="block px-4 py-2 rounded-xl hover:bg-gray-100 text-gray-700">
-                Laporan
-            </a>
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="flex w-full items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium cursor-pointer
+                           text-red-500 hover:bg-red-50 hover:bg-red-500/10 transition">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </button>
+                </form>
+            </li>
+
 
         </nav>
     </div>

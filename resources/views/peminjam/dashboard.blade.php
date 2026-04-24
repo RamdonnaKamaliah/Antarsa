@@ -7,13 +7,13 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {{-- Pinjaman Aktif --}}
         <div
-            class="bg-white bg-slate-800 p-6 rounded-2xl border-b-4 hover:shadow-lg hover:shadow-gray-400 none hover:-translate-y-0.5 transition-all duration-300   border-blue-600 shadow-sm flex items-center gap-4">
+            class="bg-white p-6 rounded-2xl border-b-4 hover:shadow-lg hover:shadow-gray-400 none hover:-translate-y-0.5 transition-all duration-300   border-blue-600 shadow-sm flex items-center gap-4">
             <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl">
                 <i class="fas fa-book-reader"></i>
             </div>
             <div>
                 <p class="text-xs text-slate-500 font-medium">Pinjaman Aktif</p>
-                <h3 class="text-2xl font-bold text-slate-800 text-white">{{ $stats['pinjaman_aktif'] }}</h3>
+                <h3 class="text-2xl font-bold text-slate-800">{{ $stats['pinjaman_aktif'] }}</h3>
             </div>
         </div>
 
@@ -25,13 +25,13 @@
             </div>
             <div>
                 <p class="text-xs text-slate-500 font-medium">Menunggu Approval</p>
-                <h3 class="text-2xl font-bold text-slate-800 text-white">{{ $stats['total_pending'] }}</h3>
+                <h3 class="text-2xl font-bold text-slate-800">{{ $stats['total_pending'] }}</h3>
             </div>
         </div>
 
         {{-- Selesai --}}
         <div
-            class="bg-white p-6 rounded-2xl border-b-4 border-green-600 shadow-sm flex items-center gap-4 hover:shadow-lg hover:shadow-gray-400 hover:shadow-none hover:-translate-y-0.5 transition-all duration-300">
+            class="bg-white p-6 rounded-2xl border-b-4 border-green-600 shadow-sm flex items-center gap-4 hover:shadow-lg hover:shadow-gray-400 hover:-translate-y-0.5 transition-all duration-300">
             <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center text-xl">
                 <i class="fas fa-check-double"></i>
             </div>
@@ -47,13 +47,13 @@
         <div class="flex flex-col mb-6">
             <div class="flex items-center justify-start gap-2">
                 <i class="fas fa-book-reader text-primary text-lg"></i>
-                <h2 class="text-xl font-black text-slate-800 text-white tracking-tight">
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">
                     Rekomendasi Buku Untukmu
                 </h2>
             </div>
 
             {{-- Baris Deskripsi --}}
-            <p class="text-sm text-slate-500 text-slate-400 mt-1">
+            <p class="text-sm text-slate-500 mt-1">
                 Booking & pinjam buku di sini
             </p>
         </div>
@@ -82,7 +82,7 @@
                         <span
                             class="text-[9px] bg-primary/10 text-primary px-2 py-0.5 rounded-md font-bold uppercase tracking-tighter">{{ $buku->kategori->nama_kategori ?? 'Umum' }}</span>
                         <h3
-                            class="font-bold text-slate-800 text-white truncate mt-2 group-hover:text-primary transition-colors">
+                            class="font-bold text-slate-800 truncate mt-2 group-hover:text-primary transition-colors">
                             {{ $buku->judul_buku }}</h3>
                         <div class="flex justify-between items-center mt-4 pt-4 border-t border-slate-50">
                             <span class="text-[12px] text-slate-400 font-medium italic">Oleh:
@@ -112,9 +112,9 @@
     @endif
 
     {{-- 3. Tabel Pinjaman Aktif --}}
-    <div class="bg-white bg-slate-800 rounded-2xl border border-slate-100 shadow-sm overflow-hidden mb-10">
+    <div class="bg-white  rounded-2xl border border-slate-100 shadow-sm overflow-hidden mb-10">
         <div class="p-6 border-b border-slate-50 flex justify-between items-center">
-            <h2 class="font-bold text-slate-800 text-white flex items-center gap-2">
+            <h2 class="font-bold text-slate-800  flex items-center gap-2">
                 <i class="fa-solid fa-list-check text-primary"></i> Buku yang Kamu Bawa
             </h2>
             <a href="{{ route('siswa.peminjamAlat') }}" class="text-primary text-xs font-bold hover:underline">LIHAT
@@ -122,7 +122,7 @@
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left">
-                <thead class="bg-slate-50 bg-slate-700/50 text-slate-400 text-[10px] uppercase tracking-widest">
+                <thead class="bg-slate-50  text-slate-400 text-[10px] uppercase tracking-widest">
                     <tr>
                         <th class="px-6 py-4">Judul Buku</th>
                         <th class="px-6 py-4">Tgl Pinjam</th>
@@ -133,7 +133,7 @@
                 <tbody class="divide-y divide-slate-50 text-sm">
                     @forelse($pinjamanAktif as $pinjam)
                         <tr class="hover:bg-slate-50/50 transition-colors">
-                            <td class="px-6 py-4 font-semibold text-slate-700 text-slate-200">
+                            <td class="px-6 py-4 font-semibold text-slate-700 ">
                                 {{ $pinjam->buku->judul }}</td>
                             <td class="px-6 py-4 text-slate-500">
                                 {{ \Carbon\Carbon::parse($pinjam->tgl_pinjam)->format('d M Y') }}</td>

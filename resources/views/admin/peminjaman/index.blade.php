@@ -13,7 +13,7 @@
                     <i class="fas fa-file-alt text-sm text-blue-600"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-white">{{ $stats['total_peminjaman'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $stats['total_peminjaman'] }}</h3>
             <p class="text-[11px] text-slate-400">Count</p>
         </div>
 
@@ -24,7 +24,7 @@
                     <i class="fas fa-file-alt text-sm text-blue-600"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-white">{{ $stats['total_barangKembali'] }}</h3>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $stats['total_barangKembali'] }}</h3>
             <p class="text-[11px] text-slate-400">Count</p>
         </div>
 
@@ -57,19 +57,19 @@
 
 
             <div class="overflow-x-auto mt-4">
-                <table id="peminjamanTable" class="w-full border border-gray-300 text-xs md:text-sm border-gray-600">
-                    <thead class="bg-gray-200  bg-slate-700 ">
+                <table id="peminjamanTable" class="w-full text-xs md:text-sm rounded-2xl">
+                    <thead class="bg-gray-200 rounded-2xl">
                         <tr>
-                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Nama Peminjam</th>
-                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Tanggal</th>
-                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Status</th>
-                            <th class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">Action</th>
+                            <th class=" px-2 py-1 md:px-4 md:py-2">Nama Peminjam</th>
+                            <th class=" px-2 py-1 md:px-4 md:py-2">Tanggal</th>
+                            <th class=" px-2 py-1 md:px-4 md:py-2">Status</th>
+                            <th class="px-2 py-1 md:px-4 md:py-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($peminjaman as $row)
                             <tr>
-                                <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">
+                                <td class=" px-2 py-1 md:px-4 md:py-2">
                                     {{ $row->user->name }}
                                 </td>
                                 <td class="border border-gray-300 px-2 py-1 md:px-4 md:py-2">

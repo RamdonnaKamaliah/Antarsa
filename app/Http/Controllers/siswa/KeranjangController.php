@@ -64,29 +64,11 @@ class KeranjangController extends Controller
 
         session()->put('keranjang', $keranjang);
 
-         return redirect()->route('siswa.keranjang.index')
+         return redirect()->route('siswa.data-alat.index')
             ->with('success', 'Alat berhasil ditambahkan ke keranjang!');
     }
 
-//     public function checkout(Request $request)
-// {
-//     $request->validate([
-//         'alat_selected' => 'required|array'
-//     ]);
 
-//     $selected = $request->alat_selected;
-
-//      $adaTunggakan = Peminjamans::where('user_id', $userId)
-//         ->where('status', 'disetujui')
-//         ->whereDate('tgl_kembali_rencana', '<', now()->toDateString())
-//         ->whereNull('tgl_kembali_sebenarnya')
-//         ->exists();
-
-//     if ($adaTunggakan) {
-//         return redirect()->back()
-//             ->with('error', 'Kamu masih punya buku yang terlambat dikembalikan. Selesaikan dulu ya!');
-//     }
-// }
 
 public function update(Request $request, $id)
 {
@@ -116,7 +98,7 @@ public function update(Request $request, $id)
             session()->put('keranjang', $keranjang);
         }
 
-        return redirect()->route('peminjam.keranjang.index')
+        return redirect()->route('siswa.keranjang.index')
             ->with('success', 'Item berhasil dihapus!');
     }
 }

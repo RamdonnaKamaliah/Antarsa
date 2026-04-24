@@ -53,7 +53,7 @@
                 <div class="lg:col-span-2 space-y-5">
                     @foreach ($keranjang as $id => $item)
                         <div
-                            class="bg-white  rounded-2xl border border-slate-100 border-slate-700 p-5 flex flex-col sm:flex-row items-center gap-6 group hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
+                            class="bg-white  rounded-2xl border border-slate-100 p-5 flex flex-col sm:flex-row items-center gap-6 group hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
 
                             {{-- Checkbox --}}
                             <div class="flex items-center">
@@ -109,7 +109,7 @@
                                         </button>
                                     </form>
                                     <span
-                                        class="w-12 text-center font-black text-white text-lg">{{ $item['jumlah'] }}</span>
+                                        class="w-12 text-center font-black text-slate-700 text-lg">{{ $item['jumlah'] }}</span>
                                     <form action="{{ route('siswa.keranjang.update', $id) }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="jumlah" value="{{ $item['jumlah'] + 1 }}">
@@ -119,11 +119,10 @@
                                         </button>
                                     </form>
                                 </div>
-                                <form action="{{ route('siswa.keranjang.hapus', $id) }}" method="POST"
-                                    onsubmit="return confirm('Hapus buku ini dari keranjang?')">
+                                <form action="{{ route('siswa.keranjang.hapus', $id) }}" method="POST" class="btn-delete">
                                     @csrf
-                                    <button
-                                        class="text-slate-400 hover:text-red-500 transition-colors text-xs font-bold flex items-center gap-1 uppercase tracking-tighter">
+                                    <button type="button"
+                                        class="btn-hapus text-slate-400 hover:text-red-500 transition-colors text-xs font-bold flex items-center gap-1 uppercase tracking-tighter">
                                         <i class="fas fa-trash-alt"></i> Hapus
                                     </button>
                                 </form>

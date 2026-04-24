@@ -100,7 +100,7 @@
                 const form = this.closest('form');
                 Swal.fire({
                     title: 'Apakah kamu yakin?',
-                    text: "Data kategori ini akan dihapus permanen!",
+                    text: "Data ini akan dihapus permanen!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',

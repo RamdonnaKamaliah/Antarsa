@@ -86,7 +86,7 @@
                 </tbody>
             </table>
 
-            <div class="px-6 py-4 bg-slate-50/50">
+            <div class="px-6 py-4 bg-white">
                 {{ $logs->links() }}
             </div>
         </div>

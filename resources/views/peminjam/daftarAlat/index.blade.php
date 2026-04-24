@@ -73,14 +73,13 @@
                             </h3>
 
                             <!-- Stock Info -->
-                            <div
-                                class="flex items-center justify-between mb-4 pb-4 border-b border-gray-200 border-gray-700">
+                            <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-200 ">
                                 <div class="flex items-center space-x-2">
                                     <i class="fas fa-box text-blue-600 "></i>
                                     <span class="text-sm text-gray-600">Stok:</span>
                                 </div>
                                 <span
-                                    class="text-xl font-bold {{ $row->stok > 0 ? 'text-green-600 text-green-400' : 'text-red-600 text-red-400' }}">
+                                    class="text-xl font-bold {{ $row->stok > 0 ? 'text-green-600 ' : 'text-red-600 ?>' }}">
                                     {{ $row->stok }}
                                 </span>
                             </div>
@@ -92,11 +91,18 @@
                                     <i class="fas fa-info-circle mr-2"></i>Lihat Detail
                                 </a>
 
+
+
                                 @if ($row->stok > 0)
-                                    <a href="{{ route('siswa.keranjang.checkout', ['alat_id' => $row->id]) }}"
-                                        class="w-full text-center px-4 py-2.5 bg-linear-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                                        <i class="fa-solid fa-cart-shopping"></i> Tambah
-                                    </a>
+                                    <form action="{{ route('siswa.keranjang.tambah', $row->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full px-4 py-2.5 cursor-pointer rounded-lg bg-green-700 text-white hover:bg-green-600 font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                                            <i class="fa-solid fa-cart-shopping"></i> Tambah
+                                        </button>
+
+
+                                    </form>
                                 @else
                                     <button disabled
                                         class="w-full text-center px-4 py-2.5 bg-gray-400 bg-gray-600 text-white rounded-lg font-semibold cursor-not-allowed opacity-60">
@@ -111,12 +117,12 @@
 
             <!-- Empty State -->
             @if ($alat->isEmpty())
-                <div class="bg-white bg-slate-800 rounded-xl shadow-lg p-12 text-center">
+                <div class="bg-white rounded-xl shadow-lg p-12 text-center">
                     <div class="mb-4">
-                        <i class="fas fa-inbox text-6xl text-gray-400 text-gray-600"></i>
+                        <i class="fas fa-inbox text-6xl text-gray-400"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 text-white mb-2">Belum Ada Alat Tersedia</h3>
-                    <p class="text-gray-600 text-gray-400">Saat ini belum ada alat yang tersedia untuk dipinjam.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Belum Ada Alat Tersedia</h3>
+                    <p class="text-gray-600">Saat ini belum ada alat yang tersedia untuk dipinjam.</p>
                 </div>
             @endif
 
